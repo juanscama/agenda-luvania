@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Agenda Marketing Luvania</title>
+
+<style>
+:root{
+  --paper:#FFFFFF;
+  --surface:#FFFFFF;
+  --surface-2:#F4F2F5;
+  --ink:#171320;
+  --ink-2:#4E4757;
+  --ink-3:#847C8E;
+  --line:#B6ADBE;
+  --line-2:#D6CFDC;
+  --accent:#5B2C57;
+  --accent-soft:#F1E7F0;
+  --luvania:#BC5040;
+  --cifes:#2A6291;
+  --escuela:#27735A;
+  --ambas:#655E6D;
+  --alta:#A93526;
+  --shadow:0 1px 2px rgba(23,19,32,.05), 0 8px 24px -14px rgba(23,19,32,.16);
+  --radius:10px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Times New Roman",Times,serif;
+  font-size:16.5px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:32px 20px 72px}
+
+/* ---------- cabecera ---------- */
+header{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between;margin-bottom:28px}
+h1{
+  font-family:"Times New Roman",Times,serif;
+  font-weight:400;font-size:clamp(30px,4.5vw,44px);
+  line-height:1.05;margin:0;letter-spacing:-.01em;text-wrap:balance;
+}
+h1 em{font-style:italic;color:var(--accent)}
+h1{font-weight:700}
+.sub{margin:6px 0 0;color:var(--ink-2);max-width:56ch}
+.stamp{
+  font-family:"Times New Roman",Times,serif;font-size:12.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
+  text-align:right;line-height:1.7;white-space:nowrap;
+}
+.stamp b{color:var(--ink);font-weight:500}
+
+/* ---------- hoy ---------- */
+.today{
+  background:var(--surface);border:2px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:20px 22px;margin-bottom:26px;
+  border-left:5px solid var(--accent);
+}
+.today h2{
+  font-family:"Times New Roman",Times,serif;font-size:12.5px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px;
+}
+.today .fecha{font-family:"Times New Roman",Times,serif;font-size:22px;color:var(--ink);text-transform:none;letter-spacing:0}
+.today-list{display:flex;flex-direction:column;gap:10px}
+.vacio{color:var(--ink-3);font-style:italic}
+
+/* ---------- filtros ---------- */
+.filtros{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:22px}
+.filtros .etq{
+  font-family:"Times New Roman",Times,serif;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);margin-right:4px;
+}
+.chip{
+  font:inherit;font-size:13px;cursor:pointer;
+  background:var(--surface);color:var(--ink-2);
+  border:2px solid var(--line);border-radius:99px;padding:4px 13px;
+  display:inline-flex;align-items:center;gap:7px;transition:background .15s,border-color .15s,color .15s;
+}
+.chip:hover{border-color:var(--ink-3);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.chip .n{font-family:"Times New Roman",Times,serif;font-size:11px;opacity:.7}
+.chip:focus-visible,.dia:focus-visible,.tarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---------- mes ---------- */
+.mes{margin-bottom:38px}
+.mes-cab{display:flex;align-items:baseline;gap:14px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--ink)}
+.mes-cab h3{font-family:"Times New Roman",Times,serif;font-weight:400;font-size:26px;margin:0;letter-spacing:.01em}
+.mes-cab span{font-family:"Times New Roman",Times,serif;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+
+.rejilla{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.dow{
+  font-family:"Times New Roman",Times,serif;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);text-align:center;padding:4px 0 8px;
+}
+.dia{
+  background:var(--surface);border:2px solid var(--line);border-radius:8px;
+  min-height:98px;padding:7px 8px 9px;display:flex;flex-direction:column;gap:5px;
+  text-align:left;font:inherit;color:inherit;cursor:pointer;
+  transition:border-color .15s, transform .12s;
+}
+.dia:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 0 0 1px var(--accent)}
+.dia.fuera{background:transparent;border:2px solid transparent;cursor:default;pointer-events:none}
+.dia.finde{background:var(--surface-2)}
+.dia.hoy{border-color:var(--accent);border-width:3px}
+.num{
+  font-family:"Times New Roman",Times,serif;font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;display:flex;justify-content:space-between;align-items:center;
+}
+.dia.hoy .num{color:var(--accent);font-weight:500}
+.punto{width:5px;height:5px;border-radius:50%;background:var(--alta)}
+
+.mini{
+  font-size:12.5px;line-height:1.3;color:var(--ink-2);
+  border-left:3px solid var(--u,var(--ambas));padding-left:7px;
+  display:flex;gap:5px;align-items:flex-start;
+}
+.mini b{font-weight:700;color:var(--ink);font-size:11px;font-family:"Times New Roman",Times,serif;letter-spacing:.02em;flex:none}
+.mini span{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.mas{font-family:"Times New Roman",Times,serif;font-size:11.5px;color:var(--ink-3);padding-left:8px}
+
+/* ---------- tarea (detalle y hoy) ---------- */
+.tarea{
+  display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;
+  padding:11px 13px;background:var(--surface-2);border-radius:8px;
+  border:1px solid var(--line-2);border-left:5px solid var(--u,var(--ambas));text-align:left;
+}
+.tarea.alta{background:var(--surface-2)}
+.quien{
+  font-family:"Times New Roman",Times,serif;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--surface);background:var(--u,var(--ambas));border-radius:5px;padding:3px 7px;white-space:nowrap;
+}
+.tarea .qq{font-weight:500;color:var(--ink);display:block;margin-bottom:2px}
+.tarea .dd{color:var(--ink-2);font-size:13px}
+.tarea .meta{
+  font-family:"Times New Roman",Times,serif;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3);margin-top:5px;display:flex;gap:10px;flex-wrap:wrap;
+}
+.tarea .meta .pri{color:var(--alta);font-weight:500}
+
+/* ---------- panel de día ---------- */
+dialog{
+  border:2px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);
+  padding:0;max-width:620px;width:calc(100% - 32px);box-shadow:var(--shadow);
+}
+dialog::backdrop{background:rgba(18,14,22,.5)}
+.panel-cab{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:18px 22px;border-bottom:2px solid var(--line-2);
+}
+.panel-cab h4{font-family:"Times New Roman",Times,serif;font-weight:400;font-size:22px;margin:0}
+.cerrar{
+  background:none;border:1px solid var(--line);border-radius:7px;color:var(--ink-2);
+  font:inherit;font-size:13px;padding:4px 11px;cursor:pointer;
+}
+.cerrar:hover{border-color:var(--ink-3);color:var(--ink)}
+.panel-cuerpo{padding:18px 22px 22px;display:flex;flex-direction:column;gap:10px;max-height:62vh;overflow-y:auto}
+
+/* ---------- leyenda ---------- */
+.leyenda{
+  display:flex;flex-wrap:wrap;gap:18px;margin-top:26px;padding-top:18px;border-top:2px solid var(--line);
+  font-family:"Times New Roman",Times,serif;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);
+}
+.leyenda i{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:7px;vertical-align:baseline}
+footer{margin-top:34px;color:var(--ink-3);font-size:12.5px;line-height:1.7}
+footer code{font-family:"Times New Roman",Times,serif;font-size:13px;color:var(--ink-2)}
+
+@media (max-width:760px){
+  .wrap{padding:22px 14px 56px}
+  .dia{min-height:72px;padding:5px 6px}
+  .mini span{-webkit-line-clamp:1}
+  .stamp{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Agenda del <em>equipo</em></h1>
+      <p class="sub">Qué le toca a cada uno, día por día. Reúne los compromisos del CRM, los masivos de WhatsApp y las fechas límite del calendario SMM.</p>
+    </div>
+    <div class="stamp">
+      <div><b id="n-tareas">—</b> tareas</div>
+      <div>ago · sep · oct 2026</div>
+      <div id="hoy-stamp">—</div>
+    </div>
+  </header>
+
+  <section class="today">
+    <h2>Hoy · <span class="fecha" id="hoy-fecha">—</span></h2>
+    <div class="today-list" id="hoy-lista"></div>
+  </section>
+
+  <div class="filtros" id="filtros">
+    <span class="etq">Equipo</span>
+  </div>
+
+  <div id="meses"></div>
+
+  <div class="leyenda">
+    <span><i style="background:var(--luvania)"></i>Luvania</span>
+    <span><i style="background:var(--cifes)"></i>CIFES</span>
+    <span><i style="background:var(--escuela)"></i>Escuela</span>
+    <span><i style="background:var(--ambas)"></i>Ambas o todas</span>
+    <span><span class="punto" style="display:inline-block;margin-right:7px"></span>Prioridad alta</span>
+  </div>
+
+  <footer>
+    Fuente: <code>datos/calendario_equipo.csv</code> en la bóveda. Las tareas recurrentes se expanden solas.<br>
+    El aviso diario por WhatsApp sale del mismo archivo: <code>python3 scripts/agenda_equipo.py</code>
+  </footer>
+</div>
+
+<dialog id="panel">
+  <div class="panel-cab">
+    <h4 id="panel-fecha">—</h4>
+    <button class="cerrar" id="panel-cerrar">Cerrar</button>
+  </div>
+  <div class="panel-cuerpo" id="panel-cuerpo"></div>
+</dialog>
+
+<script>
+const TAREAS = [
+{"fecha":"2026-08-28","responsable":"Juan","tarea":"Corregir el horario en los prompts de los dos bots","tipo":"cambio-bot","unidad":"Ambas","prioridad":"alta","repite":"","detalle":"Recupera la franja de mayor recaudo y evita citas a puerta cerrada. Ya hay 4 citas agendadas fuera de horario"},
+{"fecha":"2026-08-28","responsable":"Juan","tarea":"Poner seller_id por sede en el nodo de crear cita","tipo":"cambio-bot","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"Sin esto no se puede medir a ninguna asesora"},
+{"fecha":"2026-08-29","responsable":"Juan","tarea":"Activar escalamiento a asesora ante señal de intención","tipo":"cambio-bot","unidad":"Ambas","prioridad":"alta","repite":"","detalle":"Traspaso 8,1% a 25%. Vale 3,9x por conversación"},
+{"fecha":"2026-08-29","responsable":"Juan","tarea":"Corregir handles y descuento en los prompts","tipo":"cambio-bot","unidad":"Ambas","prioridad":"media","repite":"","detalle":"@luvania_estetica y @cifes_estetica. Cambiar 40% por hasta 40%"},
+{"fecha":"2026-08-30","responsable":"Juan","tarea":"Cerrar los 4 masivos de botox contra el CRM","tipo":"revision","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"Venecia, Colina, Chicó y Modelia. Medir asistencias reales, no reservas"},
+{"fecha":"2026-08-30","responsable":"Valerixa","tarea":"Adelantar carruseles 1 y 2 de Amor y Amistad","tipo":"diseno","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"Antes de que arranque la moderación del sorteo"},
+{"fecha":"2026-08-28","responsable":"Valerixa","tarea":"Cerrar artes, T&C y premio del sorteo Mi Persona Favorita","tipo":"diseno","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"LUV-SEP-001. Fecha límite del propio SMM. Se lanza el 31 de agosto en vivo"},
+{"fecha":"2026-08-28","responsable":"Valeria","tarea":"Ordenar la pestaña de Escuela del SMM de septiembre","tipo":"planeacion","unidad":"CIFES Escuela","prioridad":"alta","repite":"","detalle":"26 contenidos contra una regla de 10, 18 sin nombre y 9 sin fecha"},
+{"fecha":"2026-08-31","responsable":"Dyllan","tarea":"Enviar masivo 1 a las 8:00 a.m.","tipo":"envio","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"Base menor a 1.300 segmentada por tratamiento. Excluir los 153 sobrecontactados"},
+{"fecha":"2026-08-31","responsable":"Valerixa","tarea":"Avisar a la asesora de la sede antes del envío","tipo":"coordinacion","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"Las citas que cierra una persona se cumplen al doble que las del bot"},
+{"fecha":"2026-08-31","responsable":"Valerixa","tarea":"Publicar y lanzar en vivo el sorteo Mi Persona Favorita","tipo":"publicacion","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"LUV-SEP-001. Solo Instagram, no cruzar a Facebook. Meta: 1.000 seguidores nuevos"},
+{"fecha":"2026-09-01","responsable":"Dyllan","tarea":"Enviar masivo 2 a las 8:00 a.m.","tipo":"envio","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"Misma regla: base segmentada, excluir sobrecontactados, ofrecer hoy y mañana"},
+{"fecha":"2026-09-01","responsable":"Valerixa","tarea":"Publicar arranque de Amor y Amistad","tipo":"publicacion","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"Primer post del sorteo"},
+{"fecha":"2026-09-01","responsable":"Valeria","tarea":"Arrancar contenido de Escuela","tipo":"publicacion","unidad":"CIFES Escuela","prioridad":"alta","repite":"","detalle":"Primera semana como community de Escuela"},
+{"fecha":"2026-09-02","responsable":"Dyllan","tarea":"Enviar masivo 3 a las 8:00 a.m.","tipo":"envio","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"Último de la tanda. Misma regla"},
+{"fecha":"2026-09-03","responsable":"Juan","tarea":"Cerrar Colina-Chicó 1789 y CIFES Promo 21-22","tipo":"revision","unidad":"Ambas","prioridad":"alta","repite":"","detalle":"Vencen sus últimas citas"},
+{"fecha":"2026-09-04","responsable":"Juan","tarea":"Cerrar Aniversario 2450","tipo":"revision","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"Iba en 1.439 por mensaje y va a subir"},
+{"fecha":"2026-09-07","responsable":"Oscar","tarea":"Entregar reel del Día de la Belleza","tipo":"produccion","unidad":"Ambas","prioridad":"alta","repite":"","detalle":"LUV-SEP-005 y CCE-SEP-005. Fecha límite del SMM, publica el 9"},
+{"fecha":"2026-09-08","responsable":"Dyllan","tarea":"Programar masivo del Día de la Belleza","tipo":"envio","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"MASIVO 1 del SMM. Enviar 8:00 a.m. Máximo 2 plantillas al día. Base segmentada"},
+{"fecha":"2026-09-08","responsable":"Dyllan","tarea":"Corte de las landings de Google","tipo":"revision","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"Botox A vs B y glúteos: leads, costo por lead, citas y ventas"},
+{"fecha":"2026-09-08","responsable":"Oscar","tarea":"Entregar videos 3 y 4 de la campaña","tipo":"produccion","unidad":"Luvania","prioridad":"media","repite":"","detalle":"Segunda tanda de septiembre"},
+{"fecha":"2026-09-10","responsable":"Juan","tarea":"Cerrar Restrepo Botox","tipo":"revision","unidad":"Luvania","prioridad":"media","repite":"","detalle":"Tiene una cita el 9 de septiembre"},
+{"fecha":"2026-09-12","responsable":"Todos","tarea":"Comparar los 3 masivos nuevos contra el histórico","tipo":"reporte","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"Mensajes por cita, quién cerró, anticipación y asistencias. Meta: bajar de 120 mensajes por cita"},
+{"fecha":"2026-09-14","responsable":"Oscar","tarea":"Entregar reels de Botox Day y HarmonyCa Day","tipo":"produccion","unidad":"Ambas","prioridad":"media","repite":"","detalle":"LUV-SEP-008 y CCE-SEP-008. Eventos con estatus, sin porcentaje de descuento"},
+{"fecha":"2026-09-16","responsable":"Dyllan","tarea":"Programar masivo de Amor y Amistad","tipo":"envio","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"MASIVO 2 del SMM. La plantilla va con antes y después. Enviar temprano"},
+{"fecha":"2026-09-29","responsable":"Juan","tarea":"Ejecutar auditoría del sorteo","tipo":"auditoria","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"Valerixa verifica"},
+{"fecha":"2026-09-30","responsable":"Valerixa","tarea":"En vivo de cierre del sorteo","tipo":"auditoria","unidad":"Luvania","prioridad":"alta","repite":"","detalle":"LUV-SEP-011. Se extraen 1 ganador y 3 suplentes, verificando requisitos antes de anunciar"},
+{"fecha":"2026-08-28","responsable":"Dyllan","tarea":"Reporte semanal de pauta","tipo":"reporte","unidad":"Todas","prioridad":"alta","repite":"semanal","detalle":"Meta, Google y TikTok: inversión, resultados y costo por resultado por campaña"},
+{"fecha":"2026-08-28","responsable":"Juan","tarea":"Cierre semanal del bot","tipo":"reporte","unidad":"Ambas","prioridad":"alta","repite":"semanal","detalle":"Citas creadas, cuántas cerró el bot y cuántas una persona, y a qué anticipación quedaron"},
+{"fecha":"2026-09-02","responsable":"Valerixa","tarea":"Armar el calendario de contenido de la semana siguiente","tipo":"planeacion","unidad":"Luvania","prioridad":"media","repite":"semanal","detalle":"Piezas por canal y por marca. No adaptar el mismo formato entre canales"},
+{"fecha":"2026-09-02","responsable":"Valeria","tarea":"Armar el calendario de contenido de Escuela","tipo":"planeacion","unidad":"CIFES Escuela","prioridad":"media","repite":"semanal","detalle":"Hablarle a quien busca oficio e ingresos. No usar el tono de las clínicas"},
+{"fecha":"2026-09-01","responsable":"Valerixa","tarea":"Retomar interesados sin cita de la semana anterior","tipo":"seguimiento","unidad":"Ambas","prioridad":"alta","repite":"semanal","detalle":"Los que conversaron y no agendaron. Hoy son 524 acumulados sin trabajar"},
+{"fecha":"2026-09-01","responsable":"Juan","tarea":"Reporte mensual del CRM por sede","tipo":"reporte","unidad":"Ambas","prioridad":"alta","repite":"mensual","detalle":"Leads, citas, asistencias, ventas y ticket por sede. Comparar contra el mes anterior"},
+{"fecha":"2026-09-05","responsable":"Todos","tarea":"Reunión mensual de resultados","tipo":"reunion","unidad":"Todas","prioridad":"alta","repite":"mensual","detalle":"Qué funcionó, qué no y qué se cambia el mes siguiente"},
+{"fecha":"2026-09-25","responsable":"Todos","tarea":"Armar el SMM de octubre","tipo":"planeacion","unidad":"Todas","prioridad":"alta","repite":"mensual","detalle":"10 contenidos por unidad, 4 de ventas, 2 masivos. Revisar el panel de control antes de cerrar"}
+];
+
+const DIAS = ["lunes","martes","miércoles","jueves","viernes","sábado","domingo"];
+const DOW  = ["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
+const MESES= ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const COLOR_UNIDAD = {
+  "Luvania":"var(--luvania)", "CIFES":"var(--cifes)", "CIFES Escuela":"var(--escuela)",
+  "Ambas":"var(--ambas)", "Todas":"var(--ambas)"
+};
+const INICIO = new Date(2026,7,1), FIN = new Date(2026,9,31);
+const HOY = new Date(2026,7,27);
+
+const clave = d => d.toISOString().slice(0,10);
+const parse = s => { const [a,m,d]=s.split("-").map(Number); return new Date(a,m-1,d); };
+
+/* expande las tareas recurrentes igual que el script de Python */
+function expandir(t){
+  const ini = parse(t.fecha), fechas = [];
+  const r = (t.repite||"").toLowerCase();
+  if(!r){ return (ini>=INICIO && ini<=FIN) ? [ini] : []; }
+  let d = new Date(ini);
+  const paso = r==="semanal" ? 7 : r==="quincenal" ? 14 : null;
+  while(d <= FIN){
+    if(d >= INICIO) fechas.push(new Date(d));
+    if(paso) d.setDate(d.getDate()+paso);
+    else if(r==="mensual") d.setMonth(d.getMonth()+1);
+    else break;
+  }
+  return fechas;
+}
+
+const porDia = new Map();
+TAREAS.forEach(t => expandir(t).forEach(d => {
+  const k = clave(d);
+  if(!porDia.has(k)) porDia.set(k,[]);
+  porDia.get(k).push(t);
+}));
+porDia.forEach(v => v.sort((a,b) => (a.prioridad==="alta"?0:1)-(b.prioridad==="alta"?0:1) || a.responsable.localeCompare(b.responsable)));
+
+const PERSONAS = [...new Set(TAREAS.map(t=>t.responsable))].sort();
+let filtro = null;
+
+const visibles = k => (porDia.get(k)||[]).filter(t => !filtro || t.responsable===filtro);
+const color = t => COLOR_UNIDAD[t.unidad] || "var(--ambas)";
+
+function nodoTarea(t){
+  const el = document.createElement("div");
+  el.className = "tarea" + (t.prioridad==="alta" ? " alta" : "");
+  el.style.setProperty("--u", color(t));
+  const meta = [t.unidad, t.tipo.replace("-"," ")];
+  if(t.repite) meta.push(t.repite);
+  el.innerHTML = `<span class="quien">${t.responsable}</span>
+    <div><span class="qq">${t.tarea}</span>
+      ${t.detalle ? `<span class="dd">${t.detalle}</span>` : ""}
+      <div class="meta">${t.prioridad==="alta" ? `<span class="pri">Alta</span>` : ""}${meta.map(m=>`<span>${m}</span>`).join("")}</div>
+    </div>`;
+  return el;
+}
+
+/* ---- hoy ---- */
+function pintarHoy(){
+  const cont = document.getElementById("hoy-lista");
+  cont.textContent = "";
+  const lista = visibles(clave(HOY));
+  if(!lista.length){
+    const p = document.createElement("p");
+    p.className = "vacio";
+    p.textContent = filtro ? `Sin tareas de ${filtro} para hoy.` : "Sin tareas para hoy.";
+    cont.appendChild(p);
+    return;
+  }
+  lista.forEach(t => cont.appendChild(nodoTarea(t)));
+}
+
+/* ---- filtros ---- */
+function pintarFiltros(){
+  const cont = document.getElementById("filtros");
+  PERSONAS.forEach(p => {
+    const n = [...porDia.values()].flat().filter(t=>t.responsable===p).length;
+    const b = document.createElement("button");
+    b.className = "chip"; b.type = "button";
+    b.setAttribute("aria-pressed","false");
+    b.innerHTML = `${p} <span class="n">${n}</span>`;
+    b.onclick = () => {
+      filtro = filtro===p ? null : p;
+      document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed","false"));
+      if(filtro) b.setAttribute("aria-pressed","true");
+      pintarHoy(); pintarMeses();
+    };
+    cont.appendChild(b);
+  });
+}
+
+/* ---- meses ---- */
+function pintarMeses(){
+  const cont = document.getElementById("meses");
+  cont.textContent = "";
+  for(let m=7; m<=9; m++){
+    const sec = document.createElement("section");
+    sec.className = "mes";
+    const primero = new Date(2026,m,1), ultimo = new Date(2026,m+1,0);
+    let total = 0;
+    for(let d=1; d<=ultimo.getDate(); d++) total += visibles(clave(new Date(2026,m,d))).length;
+
+    const cab = document.createElement("div");
+    cab.className = "mes-cab";
+    cab.innerHTML = `<h3>${MESES[m].charAt(0).toUpperCase()+MESES[m].slice(1)}</h3><span>${total} ${total===1?"tarea":"tareas"}</span>`;
+    sec.appendChild(cab);
+
+    const g = document.createElement("div");
+    g.className = "rejilla";
+    DOW.forEach(d => { const e=document.createElement("div"); e.className="dow"; e.textContent=d; g.appendChild(e); });
+
+    const offset = (primero.getDay()+6)%7;
+    for(let i=0;i<offset;i++){ const e=document.createElement("div"); e.className="dia fuera"; g.appendChild(e); }
+
+    for(let d=1; d<=ultimo.getDate(); d++){
+      const fecha = new Date(2026,m,d), k = clave(fecha), lista = visibles(k);
+      const cel = document.createElement("button");
+      cel.type = "button";
+      cel.className = "dia" + ([5,6].includes((fecha.getDay()+6)%7) ? " finde":"") + (k===clave(HOY)?" hoy":"");
+      cel.setAttribute("aria-label", `${d} de ${MESES[m]}, ${lista.length} tareas`);
+      const alta = lista.some(t=>t.prioridad==="alta");
+      cel.innerHTML = `<div class="num"><span>${d}</span>${alta?'<span class="punto"></span>':""}</div>`;
+      lista.slice(0,2).forEach(t => {
+        const mi = document.createElement("div");
+        mi.className = "mini";
+        mi.style.setProperty("--u", color(t));
+        mi.innerHTML = `<b>${t.responsable.slice(0,3).toUpperCase()}</b><span>${t.tarea}</span>`;
+        cel.appendChild(mi);
+      });
+      if(lista.length>2){
+        const mas = document.createElement("div");
+        mas.className="mas"; mas.textContent = `+${lista.length-2}`;
+        cel.appendChild(mas);
+      }
+      if(lista.length) cel.onclick = () => abrirDia(fecha, lista);
+      else cel.style.cursor = "default";
+      g.appendChild(cel);
+    }
+    sec.appendChild(g);
+    cont.appendChild(sec);
+  }
+}
+
+/* ---- panel ---- */
+const panel = document.getElementById("panel");
+function abrirDia(fecha, lista){
+  document.getElementById("panel-fecha").textContent =
+    `${DIAS[(fecha.getDay()+6)%7]} ${fecha.getDate()} de ${MESES[fecha.getMonth()]}`;
+  const cuerpo = document.getElementById("panel-cuerpo");
+  cuerpo.textContent = "";
+  lista.forEach(t => cuerpo.appendChild(nodoTarea(t)));
+  panel.showModal();
+}
+document.getElementById("panel-cerrar").onclick = () => panel.close();
+panel.addEventListener("click", e => { if(e.target===panel) panel.close(); });
+
+/* ---- arranque ---- */
+document.getElementById("n-tareas").textContent = [...porDia.values()].flat().length;
+document.getElementById("hoy-fecha").textContent = `${DIAS[(HOY.getDay()+6)%7]} ${HOY.getDate()} de ${MESES[HOY.getMonth()]}`;
+document.getElementById("hoy-stamp").textContent = `hoy: ${HOY.getDate()}/${HOY.getMonth()+1}/${HOY.getFullYear()}`;
+pintarFiltros();
+pintarHoy();
+pintarMeses();
+</script>
+</body>
+</html>
