@@ -69,36 +69,64 @@
   .cuenta { margin-left: auto; font-size: 13px; color: var(--suave); }
 
   .mes-titulo {
-    font-size: 22px; padding: 0 0 10px; margin: 0 0 12px;
-    border-bottom: 3px solid var(--borde); font-weight: normal;
+    font-size: 27px; margin: 0 0 3px; font-weight: normal; letter-spacing: -.3px;
   }
-  .grilla { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0;
-            border: 2px solid var(--borde); background: var(--borde); }
+  .mes-titulo span { color: var(--suave); font-size: 15px; font-style: italic; }
+  .mes-sub {
+    font-size: 12px; color: var(--suave); margin-bottom: 16px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  /* cuadritos separados: cada dia es una tarjeta, no una celda de tabla */
+  .grilla { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; }
   .dia-nom {
-    background: var(--crema); padding: 7px 6px; text-align: center;
-    font-size: 11px; text-transform: uppercase; letter-spacing: .8px;
+    padding: 0 0 7px; text-align: center;
+    font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.4px;
     color: var(--suave);
   }
   .celda {
-    background: var(--papel); min-height: 106px; padding: 5px 6px 7px;
-    border-top: 1.5px solid var(--linea);
+    background: var(--papel); min-height: 118px; padding: 8px 8px 10px;
+    border: 1.5px solid var(--linea); border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(43,35,32,.05);
+    transition: box-shadow .15s, transform .15s;
   }
-  .celda.fuera { background: #f7f2ec; }
-  .celda.hoy { background: #fdf0e6; box-shadow: inset 0 0 0 3px var(--coral); }
-  .num { font-size: 14px; color: var(--suave); margin-bottom: 4px; }
-  .celda.hoy .num { color: var(--coral); font-weight: bold; }
+  .celda:hover { box-shadow: 0 3px 10px rgba(43,35,32,.13); transform: translateY(-1px); }
+  .celda.fuera { background: transparent; border-color: transparent; box-shadow: none; }
+  .celda.fuera:hover { transform: none; box-shadow: none; }
+  .celda.finde { background: #faf5ef; }
+  .celda.hoy {
+    border: 2.5px solid var(--coral); background: #fffaf6;
+    box-shadow: 0 3px 14px rgba(201,111,74,.22);
+  }
+  .num {
+    font-size: 15px; color: var(--tinta); margin-bottom: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .celda.fuera .num { color: #c9bcb0; }
+  .celda.hoy .num {
+    color: #fff; background: var(--coral); font-weight: bold;
+    width: 25px; height: 25px; line-height: 25px; text-align: center;
+    border-radius: 50%; margin: -2px 0 7px;
+  }
+
   .pieza {
-    display: block; font-size: 11px; line-height: 1.3;
-    padding: 3px 5px; margin-bottom: 3px;
-    border-left: 3px solid; background: var(--crema);
+    display: block; font-size: 10.5px; line-height: 1.35;
+    padding: 4px 6px; margin-bottom: 4px; border-radius: 2px;
+    border-left: 3px solid; cursor: default;
   }
-  .pieza b { display: block; font-weight: normal; }
-  .p-Luvania { border-color: var(--luvania); }
-  .p-CIFES { border-color: var(--cifes); }
-  .p-Escuela { border-color: var(--escuela); }
-  .limite { font-size: 10px; color: var(--suave); font-style: italic; }
-  .leyenda { margin-top: 12px; font-size: 12px; color: var(--suave); }
-  .leyenda span { margin-right: 14px; }
+  .pieza b { display: block; font-weight: bold; margin-bottom: 1px; }
+  .pieza i { font-style: normal; color: var(--suave); font-size: 9.5px; }
+  .p-Luvania { border-color: var(--luvania); background: #fbeee7; }
+  .p-CIFES   { border-color: var(--cifes);   background: #e9eef9; }
+  .p-Escuela { border-color: var(--escuela); background: #eef4e8; }
+
+  .leyenda {
+    margin-top: 18px; padding-top: 12px; border-top: 1.5px solid var(--linea);
+    font-size: 12px; color: var(--suave);
+    display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+  }
+  .punto { display: inline-flex; align-items: center; gap: 6px; }
+  .punto i { width: 11px; height: 11px; border-radius: 2px; display: inline-block; }
 
   .cargando, .vacio { padding: 40px 0; color: var(--suave); font-style: italic; }
   footer {
@@ -296,7 +324,9 @@ function pintar(datos, mes) {
     (porDia[x.publica] = porDia[x.publica] || []).push(x);
   }
 
-  let h = `<h2 class="mes-titulo">${MES_NOMBRE[String(m).padStart(2,"0")]} de ${a}</h2>`;
+  const total = datos.filter(x => x.publica && x.publica.slice(0,7) === mes).length;
+  let h = `<h2 class="mes-titulo">${MES_NOMBRE[String(m).padStart(2,"0")]} <span>${a}</span></h2>`;
+  h += `<div class="mes-sub">${total} piezas programadas</div>`;
   h += '<div class="grilla">';
   for (const d of ["lun","mar","mié","jue","vie","sáb","dom"]) {
     h += `<div class="dia-nom">${d}</div>`;
@@ -307,11 +337,12 @@ function pintar(datos, mes) {
     const fuera = cur.getMonth() !== m - 1;
     const clases = ["celda"];
     if (fuera) clases.push("fuera");
+    else if (cur.getDay() === 0 || cur.getDay() === 6) clases.push("finde");
     if (iso === hoy) clases.push("hoy");
     h += `<div class="${clases.join(" ")}"><div class="num">${cur.getDate()}</div>`;
     for (const x of (porDia[iso] || [])) {
       h += `<span class="pieza p-${x.marca}" title="${x.nombre.replace(/"/g,"&quot;")}">
-              <b>${x.nombre.slice(0, 42)}</b>${x.codigo}</span>`;
+              <b>${x.nombre.slice(0, 38)}</b><i>${x.codigo}</i></span>`;
     }
     h += "</div>";
     cur.setDate(cur.getDate() + 1);
@@ -319,10 +350,10 @@ function pintar(datos, mes) {
   }
   h += "</div>";
   h += `<div class="leyenda">
-    <span class="marca m-Luvania">Luvania</span>
-    <span class="marca m-CIFES">CIFES</span>
-    <span class="marca m-Escuela">Escuela</span>
-    · las piezas se ubican por su fecha de publicación</div>`;
+    <span class="punto"><i style="background:var(--luvania)"></i> Luvania</span>
+    <span class="punto"><i style="background:var(--cifes)"></i> CIFES</span>
+    <span class="punto"><i style="background:var(--escuela)"></i> Escuela</span>
+    <span style="margin-left:auto">ubicadas por fecha de publicación</span></div>`;
   caja.innerHTML = h;
 }
 
