@@ -7,45 +7,55 @@
 <title>Calendario SMM · Luvania y CIFES</title>
 <style>
   :root {
-    --tinta: #2b2320;
-    --suave: #8a7a70;
-    --linea: #d8cabf;
-    --borde: #2b2320;
+    --tinta: #2a2320;
+    --suave: #9a8b80;
+    --tenue: #c4b5a8;
+    --linea: #e6dbd0;
     --coral: #c96f4a;
-    --crema: #fbf6f0;
-    --fondo: #f2ece4;
+    --crema: #faf5ef;
+    --fondo: #efe8df;
     --papel: #ffffff;
     --luvania: #c96f4a;
-    --cifes: #4a6fc9;
+    --cifes: #5273b8;
     --escuela: #7a9e5c;
   }
   * { box-sizing: border-box; }
   body {
     font-family: "Times New Roman", Times, serif;
     background: var(--fondo); color: var(--tinta);
-    margin: 0; padding: 26px 22px 60px;
+    margin: 0; padding: 34px 30px 70px;
     font-size: 15px; line-height: 1.5;
   }
-  header { margin-bottom: 22px; }
-  h1 { font-size: 30px; font-weight: normal; margin: 0 0 4px; letter-spacing: -.5px; }
-  .sub { color: var(--suave); font-style: italic; font-size: 14px; }
+  header {
+    margin-bottom: 26px; padding-bottom: 18px;
+    border-bottom: 1px solid var(--tenue);
+  }
+  h1 { font-size: 34px; font-weight: normal; margin: 0 0 5px; letter-spacing: -.6px; }
+  .sub {
+    color: var(--suave); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 2px;
+  }
   .columnas { display: grid; grid-template-columns: 1fr 340px; gap: 22px; align-items: start; }
 
   aside { position: sticky; top: 20px; display: flex; flex-direction: column; gap: 16px; }
-  .panel { border: 2px solid var(--borde); background: var(--papel); }
+  .panel {
+    background: var(--papel); border-radius: 6px; overflow: hidden;
+    box-shadow: 0 1px 3px rgba(42,35,32,.07), 0 0 0 1px rgba(42,35,32,.04);
+  }
   .panel h2 {
-    margin: 0; padding: 10px 14px; font-size: 13px; font-weight: normal;
-    text-transform: uppercase; letter-spacing: .8px;
-    border-bottom: 2px solid var(--borde); background: var(--crema);
+    margin: 0; padding: 12px 16px; font-size: 10.5px; font-weight: normal;
+    text-transform: uppercase; letter-spacing: 2px;
+    border-bottom: 1px solid var(--linea); background: var(--crema);
+    color: var(--suave);
   }
   .panel .cuerpo { padding: 12px 14px; }
-  .controles { display: flex; flex-direction: column; gap: 9px; }
-  .controles label { font-size: 12px; color: var(--suave); display: block; margin-bottom: 3px; }
-  .controles select, .controles button { width: 100%; }
+  .cabecera { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
+  .controles { display: flex; gap: 8px; align-items: center; }
 
   /* lo de hoy: es lo primero que se mira */
-  .hoy-panel { border-color: var(--coral); border-width: 3px; }
-  .hoy-panel h2 { background: var(--coral); color: #fff; border-bottom-color: var(--coral); }
+  .hoy-panel { box-shadow: 0 0 0 2px var(--coral), 0 6px 20px rgba(201,111,74,.16); }
+  .hoy-panel h2 { background: var(--coral); color: #fff; border-bottom-color: var(--coral);
+                  letter-spacing: 3px; }
   .hoy-fecha { font-size: 13px; color: var(--suave); margin-bottom: 10px; font-style: italic; }
   .tarea-hoy {
     padding: 9px 0; border-bottom: 1.5px solid var(--linea);
@@ -54,6 +64,22 @@
   .tarea-hoy .t-nom { font-weight: bold; display: block; font-size: 14px; }
   .tarea-hoy .t-meta { font-size: 12px; color: var(--suave); }
   .nada-hoy { color: var(--suave); font-style: italic; font-size: 14px; }
+
+  /* el detalle del dia que se abre al hacer clic en el calendario */
+  .celda:not(.fuera) { cursor: pointer; }
+  .celda.elegida { box-shadow: 0 0 0 2px var(--tinta), 0 8px 22px rgba(42,35,32,.16); }
+  .dia-panel h2 { display: flex; justify-content: space-between; align-items: center; }
+  .cerrar {
+    border: none; background: none; font-size: 20px; line-height: 1;
+    color: var(--suave); cursor: pointer; padding: 0 2px; width: auto;
+  }
+  .cerrar:hover { color: var(--tinta); background: none; }
+  .det-pieza { padding: 13px 0; border-bottom: 1px solid var(--linea); }
+  .det-pieza:last-child { border-bottom: none; padding-bottom: 2px; }
+  .det-pieza .d-nom { font-weight: bold; font-size: 14px; display: block; margin: 5px 0 3px; }
+  .det-pieza .d-desc { font-size: 12.5px; color: #6b5d54; margin: 6px 0; line-height: 1.5; }
+  .det-fila { font-size: 11.5px; color: var(--suave); margin-top: 5px; }
+  .det-fila b { color: var(--tinta); font-weight: normal; }
   .cuenta { font-size: 12px; color: var(--suave); }
 
   @media (max-width: 900px) {
@@ -62,71 +88,77 @@
   }
   select, button {
     font-family: inherit; font-size: 14px; padding: 5px 10px;
-    border: 1.5px solid var(--borde); background: #fff; color: var(--tinta);
-    cursor: pointer;
+    border: 1px solid var(--linea); background: #fff; color: var(--tinta);
+    cursor: pointer; border-radius: 4px;
   }
-  button:hover { background: var(--crema); }
+  button:hover { background: var(--crema); border-color: var(--tenue); }
   .cuenta { margin-left: auto; font-size: 13px; color: var(--suave); }
 
   .mes-titulo {
-    font-size: 27px; margin: 0 0 3px; font-weight: normal; letter-spacing: -.3px;
+    font-size: 25px; margin: 0; font-weight: normal; letter-spacing: -.3px;
+    display: flex; align-items: baseline; gap: 10px;
   }
-  .mes-titulo span { color: var(--suave); font-size: 15px; font-style: italic; }
+  .mes-titulo span { color: var(--tenue); font-size: 20px; }
   .mes-sub {
-    font-size: 12px; color: var(--suave); margin-bottom: 16px;
-    text-transform: uppercase; letter-spacing: 1px;
+    font-size: 10.5px; color: var(--suave); margin: 2px 0 20px;
+    text-transform: uppercase; letter-spacing: 1.6px;
   }
 
-  /* cuadritos separados: cada dia es una tarjeta, no una celda de tabla */
-  .grilla { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; }
+  .grilla { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
   .dia-nom {
-    padding: 0 0 7px; text-align: center;
-    font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.4px;
-    color: var(--suave);
+    padding: 0 0 10px; text-align: center;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--tenue);
   }
   .celda {
-    background: var(--papel); min-height: 118px; padding: 8px 8px 10px;
-    border: 1.5px solid var(--linea); border-radius: 3px;
-    box-shadow: 0 1px 2px rgba(43,35,32,.05);
-    transition: box-shadow .15s, transform .15s;
+    background: var(--papel); min-height: 128px; padding: 10px 9px 12px;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(42,35,32,.06), 0 0 0 1px rgba(42,35,32,.04);
+    transition: box-shadow .18s ease, transform .18s ease;
   }
-  .celda:hover { box-shadow: 0 3px 10px rgba(43,35,32,.13); transform: translateY(-1px); }
-  .celda.fuera { background: transparent; border-color: transparent; box-shadow: none; }
+  .celda:hover {
+    box-shadow: 0 6px 18px rgba(42,35,32,.11), 0 0 0 1px rgba(42,35,32,.06);
+    transform: translateY(-2px);
+  }
+  .celda.fuera { background: transparent; box-shadow: none; }
   .celda.fuera:hover { transform: none; box-shadow: none; }
-  .celda.finde { background: #faf5ef; }
+  .celda.finde { background: #f8f3ed; box-shadow: 0 0 0 1px rgba(42,35,32,.04); }
   .celda.hoy {
-    border: 2.5px solid var(--coral); background: #fffaf6;
-    box-shadow: 0 3px 14px rgba(201,111,74,.22);
+    background: #fffdfb;
+    box-shadow: 0 0 0 2px var(--coral), 0 8px 22px rgba(201,111,74,.2);
   }
   .num {
-    font-size: 15px; color: var(--tinta); margin-bottom: 6px;
-    font-variant-numeric: tabular-nums;
+    font-size: 14px; color: var(--suave); margin-bottom: 9px;
+    font-variant-numeric: tabular-nums; line-height: 1;
   }
-  .celda.fuera .num { color: #c9bcb0; }
+  .celda.fuera .num { color: var(--tenue); }
   .celda.hoy .num {
     color: #fff; background: var(--coral); font-weight: bold;
-    width: 25px; height: 25px; line-height: 25px; text-align: center;
-    border-radius: 50%; margin: -2px 0 7px;
+    width: 26px; height: 26px; line-height: 26px; text-align: center;
+    border-radius: 50%; margin: -3px 0 9px;
   }
 
   .pieza {
-    display: block; font-size: 10.5px; line-height: 1.35;
-    padding: 4px 6px; margin-bottom: 4px; border-radius: 2px;
-    border-left: 3px solid; cursor: default;
+    display: block; font-size: 10.5px; line-height: 1.4;
+    padding: 6px 8px; margin-bottom: 5px; border-radius: 4px;
+    border-left: 2.5px solid; cursor: default;
+    transition: transform .12s ease;
   }
-  .pieza b { display: block; font-weight: bold; margin-bottom: 1px; }
-  .pieza i { font-style: normal; color: var(--suave); font-size: 9.5px; }
-  .p-Luvania { border-color: var(--luvania); background: #fbeee7; }
-  .p-CIFES   { border-color: var(--cifes);   background: #e9eef9; }
-  .p-Escuela { border-color: var(--escuela); background: #eef4e8; }
+  .pieza:hover { transform: translateX(2px); }
+  .pieza b { display: block; font-weight: bold; margin-bottom: 2px; letter-spacing: -.1px; }
+  .pieza i { font-style: normal; color: var(--suave); font-size: 9px; letter-spacing: .3px; }
+  .p-Luvania { border-color: var(--luvania); background: #fbf0ea; }
+  .p-CIFES   { border-color: var(--cifes);   background: #edf1f9; }
+  .p-Escuela { border-color: var(--escuela); background: #f0f5eb; }
 
   .leyenda {
-    margin-top: 18px; padding-top: 12px; border-top: 1.5px solid var(--linea);
-    font-size: 12px; color: var(--suave);
-    display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+    margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--tenue);
+    font-size: 11px; color: var(--suave);
+    display: flex; gap: 20px; align-items: center; flex-wrap: wrap;
+    text-transform: uppercase; letter-spacing: 1px;
   }
-  .punto { display: inline-flex; align-items: center; gap: 6px; }
-  .punto i { width: 11px; height: 11px; border-radius: 2px; display: inline-block; }
+  .punto { display: inline-flex; align-items: center; gap: 7px; }
+  .punto i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
 
   .cargando, .vacio { padding: 40px 0; color: var(--suave); font-style: italic; }
   footer {
@@ -145,8 +177,22 @@
 <body>
 
 <header>
-  <h1>Calendario SMM</h1>
-  <div class="sub">Luvania · CIFES Centro Estético · CIFES Escuela</div>
+  <div class="cabecera">
+    <div>
+      <h1>Calendario SMM</h1>
+      <div class="sub">Luvania · CIFES Centro Estético · CIFES Escuela</div>
+    </div>
+    <div class="controles">
+      <select id="mes"></select>
+      <select id="marca">
+        <option value="">Todas las marcas</option>
+        <option>Luvania</option>
+        <option>CIFES</option>
+        <option>Escuela</option>
+      </select>
+      <button id="recargar">Actualizar</button>
+    </div>
+  </div>
 </header>
 
 <div class="columnas">
@@ -161,25 +207,12 @@
       </div>
     </section>
 
-    <section class="panel">
-      <h2>Filtros</h2>
-      <div class="cuerpo controles">
-        <div>
-          <label for="mes">Mes</label>
-          <select id="mes"></select>
-        </div>
-        <div>
-          <label for="marca">Marca</label>
-          <select id="marca">
-            <option value="">Todas</option>
-            <option>Luvania</option>
-            <option>CIFES</option>
-            <option>Escuela</option>
-          </select>
-        </div>
-        <button id="recargar">Actualizar</button>
-        <span class="cuenta" id="cuenta"></span>
-      </div>
+    <section class="panel dia-panel" id="dia-panel" hidden>
+      <h2>
+        <span id="dia-titulo"></span>
+        <button class="cerrar" id="cerrar-dia" title="Cerrar">×</button>
+      </h2>
+      <div class="cuerpo" id="dia-cuerpo"></div>
     </section>
   </aside>
 </div>
@@ -278,8 +311,10 @@ async function cargar() {
   }
   if (filtro) todo = todo.filter(x => x.marca === filtro);
   todo.sort((a, b) => (a.publica || "9999").localeCompare(b.publica || "9999"));
+  window.__datos = todo;
   pintar(todo, mes);
   pintarHoy(todo);
+  cerrarDia();
   document.getElementById("cuenta").textContent = `${todo.length} piezas`;
   document.getElementById("sello").textContent =
     " · Última lectura: " + new Date().toLocaleString("es-CO");
@@ -339,7 +374,7 @@ function pintar(datos, mes) {
     if (fuera) clases.push("fuera");
     else if (cur.getDay() === 0 || cur.getDay() === 6) clases.push("finde");
     if (iso === hoy) clases.push("hoy");
-    h += `<div class="${clases.join(" ")}"><div class="num">${cur.getDate()}</div>`;
+    h += `<div class="${clases.join(" ")}" data-dia="${iso}"><div class="num">${cur.getDate()}</div>`;
     for (const x of (porDia[iso] || [])) {
       h += `<span class="pieza p-${x.marca}" title="${x.nombre.replace(/"/g,"&quot;")}">
               <b>${x.nombre.slice(0, 38)}</b><i>${x.codigo}</i></span>`;
@@ -355,6 +390,44 @@ function pintar(datos, mes) {
     <span class="punto"><i style="background:var(--escuela)"></i> Escuela</span>
     <span style="margin-left:auto">ubicadas por fecha de publicación</span></div>`;
   caja.innerHTML = h;
+  caja.querySelectorAll(".celda:not(.fuera)").forEach(c => {
+    c.onclick = () => abrirDia(c.dataset.dia, c);
+  });
+}
+
+const MESES_L = ["enero","febrero","marzo","abril","mayo","junio","julio",
+                 "agosto","septiembre","octubre","noviembre","diciembre"];
+
+function cerrarDia() {
+  document.getElementById("dia-panel").hidden = true;
+  document.querySelectorAll(".celda.elegida").forEach(c => c.classList.remove("elegida"));
+}
+
+function abrirDia(iso, celda) {
+  document.querySelectorAll(".celda.elegida").forEach(c => c.classList.remove("elegida"));
+  celda.classList.add("elegida");
+  const [a, m, d] = iso.split("-").map(Number);
+  const fecha = new Date(a, m - 1, d);
+  document.getElementById("dia-titulo").textContent =
+    `${DIAS[fecha.getDay()]} ${d} de ${MESES_L[m-1]}`;
+  const piezas = (window.__datos || []).filter(x => x.publica === iso);
+  const cuerpo = document.getElementById("dia-cuerpo");
+  if (!piezas.length) {
+    cuerpo.innerHTML = '<span class="nada-hoy">No hay piezas programadas este día.</span>';
+  } else {
+    cuerpo.innerHTML = piezas.map(x => `
+      <div class="det-pieza">
+        <span class="marca m-${x.marca}">${x.marca}</span>
+        <span class="d-nom">${x.nombre}</span>
+        ${x.detalle ? `<div class="d-desc">${x.detalle}</div>` : ""}
+        <div class="det-fila"><b>Código</b> · ${x.codigo || "—"}</div>
+        <div class="det-fila"><b>Formato</b> · ${x.red || "—"}${x.formato ? " · " + x.formato : ""}</div>
+        ${x.tipo ? `<div class="det-fila"><b>Tipo</b> · ${x.tipo}</div>` : ""}
+        <div class="det-fila"><b>Estado</b> · ${x.estado || "—"}</div>
+        ${x.limite ? `<div class="det-fila"><b>Fecha límite</b> · ${x.limite}</div>` : ""}
+      </div>`).join("");
+  }
+  document.getElementById("dia-panel").hidden = false;
 }
 
 const sel = document.getElementById("mes");
@@ -368,6 +441,7 @@ sel.value = HOJAS[actual] ? actual : Object.keys(HOJAS)[0];
 sel.onchange = cargar;
 document.getElementById("marca").onchange = cargar;
 document.getElementById("recargar").onclick = cargar;
+document.getElementById("cerrar-dia").onclick = cerrarDia;
 cargar();
 </script>
 </body>
