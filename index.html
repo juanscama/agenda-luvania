@@ -4,395 +4,317 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Agenda Marketing Luvania</title>
-
+<title>Calendario SMM · Luvania y CIFES</title>
 <style>
-:root{
-  --paper:#FFFFFF;
-  --surface:#FFFFFF;
-  --surface-2:#F4F2F5;
-  --ink:#171320;
-  --ink-2:#4E4757;
-  --ink-3:#847C8E;
-  --line:#B6ADBE;
-  --line-2:#D6CFDC;
-  --accent:#5B2C57;
-  --accent-soft:#F1E7F0;
-  --luvania:#BC5040;
-  --cifes:#2A6291;
-  --escuela:#27735A;
-  --ambas:#655E6D;
-  --alta:#A93526;
-  --shadow:0 1px 2px rgba(23,19,32,.05), 0 8px 24px -14px rgba(23,19,32,.16);
-  --radius:10px;
-}
+  :root {
+    --tinta: #2b2320;
+    --suave: #8a7a70;
+    --linea: #d8cabf;
+    --borde: #2b2320;
+    --coral: #c96f4a;
+    --crema: #fbf6f0;
+    --fondo: #f2ece4;
+    --papel: #ffffff;
+    --luvania: #c96f4a;
+    --cifes: #4a6fc9;
+    --escuela: #7a9e5c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Times New Roman", Times, serif;
+    background: var(--fondo); color: var(--tinta);
+    margin: 0; padding: 26px 22px 60px;
+    font-size: 15px; line-height: 1.5;
+  }
+  header { margin-bottom: 22px; }
+  h1 { font-size: 30px; font-weight: normal; margin: 0 0 4px; letter-spacing: -.5px; }
+  .sub { color: var(--suave); font-style: italic; font-size: 14px; }
+  .columnas { display: grid; grid-template-columns: 1fr 340px; gap: 22px; align-items: start; }
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  background:var(--paper);
-  color:var(--ink);
-  font-family:"Times New Roman",Times,serif;
-  font-size:16.5px;
-  line-height:1.55;
-  -webkit-font-smoothing:antialiased;
-}
-.wrap{max-width:1180px;margin:0 auto;padding:32px 20px 72px}
+  aside { position: sticky; top: 20px; display: flex; flex-direction: column; gap: 16px; }
+  .panel { border: 2px solid var(--borde); background: var(--papel); }
+  .panel h2 {
+    margin: 0; padding: 10px 14px; font-size: 13px; font-weight: normal;
+    text-transform: uppercase; letter-spacing: .8px;
+    border-bottom: 2px solid var(--borde); background: var(--crema);
+  }
+  .panel .cuerpo { padding: 12px 14px; }
+  .controles { display: flex; flex-direction: column; gap: 9px; }
+  .controles label { font-size: 12px; color: var(--suave); display: block; margin-bottom: 3px; }
+  .controles select, .controles button { width: 100%; }
 
-/* ---------- cabecera ---------- */
-header{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between;margin-bottom:28px}
-h1{
-  font-family:"Times New Roman",Times,serif;
-  font-weight:400;font-size:clamp(30px,4.5vw,44px);
-  line-height:1.05;margin:0;letter-spacing:-.01em;text-wrap:balance;
-}
-h1 em{font-style:italic;color:var(--accent)}
-h1{font-weight:700}
-.sub{margin:6px 0 0;color:var(--ink-2);max-width:56ch}
-.stamp{
-  font-family:"Times New Roman",Times,serif;font-size:12.5px;
-  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
-  text-align:right;line-height:1.7;white-space:nowrap;
-}
-.stamp b{color:var(--ink);font-weight:500}
+  /* lo de hoy: es lo primero que se mira */
+  .hoy-panel { border-color: var(--coral); border-width: 3px; }
+  .hoy-panel h2 { background: var(--coral); color: #fff; border-bottom-color: var(--coral); }
+  .hoy-fecha { font-size: 13px; color: var(--suave); margin-bottom: 10px; font-style: italic; }
+  .tarea-hoy {
+    padding: 9px 0; border-bottom: 1.5px solid var(--linea);
+  }
+  .tarea-hoy:last-child { border-bottom: none; padding-bottom: 0; }
+  .tarea-hoy .t-nom { font-weight: bold; display: block; font-size: 14px; }
+  .tarea-hoy .t-meta { font-size: 12px; color: var(--suave); }
+  .nada-hoy { color: var(--suave); font-style: italic; font-size: 14px; }
+  .cuenta { font-size: 12px; color: var(--suave); }
 
-/* ---------- hoy ---------- */
-.today{
-  background:var(--surface);border:2px solid var(--line);border-radius:var(--radius);
-  box-shadow:var(--shadow);padding:20px 22px;margin-bottom:26px;
-  border-left:5px solid var(--accent);
-}
-.today h2{
-  font-family:"Times New Roman",Times,serif;font-size:12.5px;font-weight:700;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px;
-}
-.today .fecha{font-family:"Times New Roman",Times,serif;font-size:22px;color:var(--ink);text-transform:none;letter-spacing:0}
-.today-list{display:flex;flex-direction:column;gap:10px}
-.vacio{color:var(--ink-3);font-style:italic}
+  @media (max-width: 900px) {
+    .columnas { grid-template-columns: 1fr; }
+    aside { position: static; }
+  }
+  select, button {
+    font-family: inherit; font-size: 14px; padding: 5px 10px;
+    border: 1.5px solid var(--borde); background: #fff; color: var(--tinta);
+    cursor: pointer;
+  }
+  button:hover { background: var(--crema); }
+  .cuenta { margin-left: auto; font-size: 13px; color: var(--suave); }
 
-/* ---------- filtros ---------- */
-.filtros{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:22px}
-.filtros .etq{
-  font-family:"Times New Roman",Times,serif;font-size:11px;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--ink-3);margin-right:4px;
-}
-.chip{
-  font:inherit;font-size:13px;cursor:pointer;
-  background:var(--surface);color:var(--ink-2);
-  border:2px solid var(--line);border-radius:99px;padding:4px 13px;
-  display:inline-flex;align-items:center;gap:7px;transition:background .15s,border-color .15s,color .15s;
-}
-.chip:hover{border-color:var(--ink-3);color:var(--ink)}
-.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
-.chip .n{font-family:"Times New Roman",Times,serif;font-size:11px;opacity:.7}
-.chip:focus-visible,.dia:focus-visible,.tarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-
-/* ---------- mes ---------- */
-.mes{margin-bottom:38px}
-.mes-cab{display:flex;align-items:baseline;gap:14px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--ink)}
-.mes-cab h3{font-family:"Times New Roman",Times,serif;font-weight:400;font-size:26px;margin:0;letter-spacing:.01em}
-.mes-cab span{font-family:"Times New Roman",Times,serif;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
-
-.rejilla{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-.dow{
-  font-family:"Times New Roman",Times,serif;font-size:11.5px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--ink-3);text-align:center;padding:4px 0 8px;
-}
-.dia{
-  background:var(--surface);border:2px solid var(--line);border-radius:8px;
-  min-height:98px;padding:7px 8px 9px;display:flex;flex-direction:column;gap:5px;
-  text-align:left;font:inherit;color:inherit;cursor:pointer;
-  transition:border-color .15s, transform .12s;
-}
-.dia:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 0 0 1px var(--accent)}
-.dia.fuera{background:transparent;border:2px solid transparent;cursor:default;pointer-events:none}
-.dia.finde{background:var(--surface-2)}
-.dia.hoy{border-color:var(--accent);border-width:3px}
-.num{
-  font-family:"Times New Roman",Times,serif;font-size:13.5px;color:var(--ink-3);
-  font-variant-numeric:tabular-nums;display:flex;justify-content:space-between;align-items:center;
-}
-.dia.hoy .num{color:var(--accent);font-weight:500}
-.punto{width:5px;height:5px;border-radius:50%;background:var(--alta)}
-
-.mini{
-  font-size:12.5px;line-height:1.3;color:var(--ink-2);
-  border-left:3px solid var(--u,var(--ambas));padding-left:7px;
-  display:flex;gap:5px;align-items:flex-start;
-}
-.mini b{font-weight:700;color:var(--ink);font-size:11px;font-family:"Times New Roman",Times,serif;letter-spacing:.02em;flex:none}
-.mini span{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.mas{font-family:"Times New Roman",Times,serif;font-size:11.5px;color:var(--ink-3);padding-left:8px}
-
-/* ---------- tarea (detalle y hoy) ---------- */
-.tarea{
-  display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;
-  padding:11px 13px;background:var(--surface-2);border-radius:8px;
-  border:1px solid var(--line-2);border-left:5px solid var(--u,var(--ambas));text-align:left;
-}
-.tarea.alta{background:var(--surface-2)}
-.quien{
-  font-family:"Times New Roman",Times,serif;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--surface);background:var(--u,var(--ambas));border-radius:5px;padding:3px 7px;white-space:nowrap;
-}
-.tarea .qq{font-weight:500;color:var(--ink);display:block;margin-bottom:2px}
-.tarea .dd{color:var(--ink-2);font-size:13px}
-.tarea .meta{
-  font-family:"Times New Roman",Times,serif;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;
-  color:var(--ink-3);margin-top:5px;display:flex;gap:10px;flex-wrap:wrap;
-}
-.tarea .meta .pri{color:var(--alta);font-weight:500}
-
-/* ---------- panel de día ---------- */
-dialog{
-  border:2px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);
-  padding:0;max-width:620px;width:calc(100% - 32px);box-shadow:var(--shadow);
-}
-dialog::backdrop{background:rgba(18,14,22,.5)}
-.panel-cab{
-  display:flex;justify-content:space-between;align-items:center;gap:16px;
-  padding:18px 22px;border-bottom:2px solid var(--line-2);
-}
-.panel-cab h4{font-family:"Times New Roman",Times,serif;font-weight:400;font-size:22px;margin:0}
-.cerrar{
-  background:none;border:1px solid var(--line);border-radius:7px;color:var(--ink-2);
-  font:inherit;font-size:13px;padding:4px 11px;cursor:pointer;
-}
-.cerrar:hover{border-color:var(--ink-3);color:var(--ink)}
-.panel-cuerpo{padding:18px 22px 22px;display:flex;flex-direction:column;gap:10px;max-height:62vh;overflow-y:auto}
-
-/* ---------- leyenda ---------- */
-.leyenda{
-  display:flex;flex-wrap:wrap;gap:18px;margin-top:26px;padding-top:18px;border-top:2px solid var(--line);
-  font-family:"Times New Roman",Times,serif;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);
-}
-.leyenda i{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:7px;vertical-align:baseline}
-footer{margin-top:34px;color:var(--ink-3);font-size:12.5px;line-height:1.7}
-footer code{font-family:"Times New Roman",Times,serif;font-size:13px;color:var(--ink-2)}
-
-@media (max-width:760px){
-  .wrap{padding:22px 14px 56px}
-  .dia{min-height:72px;padding:5px 6px}
-  .mini span{-webkit-line-clamp:1}
-  .stamp{text-align:left}
-}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  table {
+    width: 100%; border-collapse: collapse;
+    background: var(--papel);
+    border: 2px solid var(--borde);
+  }
+  caption {
+    text-align: left; font-size: 20px; padding: 14px 12px 10px;
+    background: var(--papel); border: 2px solid var(--borde);
+    border-bottom: none; margin-top: 22px;
+  }
+  th {
+    text-align: left; font-weight: normal; font-size: 11px;
+    text-transform: uppercase; letter-spacing: .7px; color: var(--suave);
+    padding: 9px 8px; border-bottom: 2.5px solid var(--borde);
+    background: var(--crema);
+  }
+  td { padding: 9px 8px; border-bottom: 1.5px solid var(--linea); vertical-align: top; }
+  tr:hover td { background: #fdf3e9; }
+  .cod { font-size: 12px; color: var(--suave); white-space: nowrap; }
+  .nom { font-weight: bold; }
+  .det { font-size: 13px; color: var(--suave); display: block; margin-top: 2px; }
+  .fecha { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .hoy { font-weight: bold; color: var(--coral); }
+  .marca {
+    display: inline-block; padding: 1px 7px; font-size: 11px;
+    text-transform: uppercase; letter-spacing: .5px; border: 1.5px solid;
+  }
+  .m-Luvania { color: var(--luvania); border-color: var(--luvania); }
+  .m-CIFES { color: var(--cifes); border-color: var(--cifes); }
+  .m-Escuela { color: var(--escuela); border-color: var(--escuela); }
+  .estado { font-size: 12px; white-space: nowrap; }
+  .cargando, .vacio { padding: 40px 0; color: var(--suave); font-style: italic; }
+  footer {
+    margin-top: 40px; padding-top: 14px; border-top: 1.5px solid var(--linea);
+    font-size: 12px; color: var(--suave);
+  }
+  @media (max-width: 700px) {
+    body { padding: 16px 12px 40px; font-size: 14px; }
+    .col-det, .col-est { display: none; }
+  }
+  /* la fila de hoy tambien se marca dentro de la tabla */
+  tr.fila-hoy td { background: #fdf0e6; border-bottom-color: var(--coral); }
+  tr.fila-hoy .nom { color: var(--coral); }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <header>
-    <div>
-      <h1>Agenda del <em>equipo</em></h1>
-      <p class="sub">Qué le toca a cada uno, día por día. Reúne los compromisos del CRM, los masivos de WhatsApp y las fechas límite del calendario SMM.</p>
-    </div>
-    <div class="stamp">
-      <div><b id="n-tareas">—</b> tareas</div>
-      <div>ago · sep · oct 2026</div>
-      <div id="hoy-stamp">—</div>
-    </div>
-  </header>
+<header>
+  <h1>Calendario SMM</h1>
+  <div class="sub">Luvania · CIFES Centro Estético · CIFES Escuela</div>
+</header>
 
-  <section class="today">
-    <h2>Hoy · <span class="fecha" id="hoy-fecha">—</span></h2>
-    <div class="today-list" id="hoy-lista"></div>
-  </section>
+<div class="columnas">
+  <main id="tabla"><p class="cargando">Leyendo el SMM…</p></main>
 
-  <div class="filtros" id="filtros">
-    <span class="etq">Equipo</span>
-  </div>
+  <aside>
+    <section class="panel hoy-panel">
+      <h2>Hoy</h2>
+      <div class="cuerpo">
+        <div class="hoy-fecha" id="hoy-fecha"></div>
+        <div id="hoy-lista"><span class="nada-hoy">Cargando…</span></div>
+      </div>
+    </section>
 
-  <div id="meses"></div>
-
-  <div class="leyenda">
-    <span><i style="background:var(--luvania)"></i>Luvania</span>
-    <span><i style="background:var(--cifes)"></i>CIFES</span>
-    <span><i style="background:var(--escuela)"></i>Escuela</span>
-    <span><i style="background:var(--ambas)"></i>Ambas o todas</span>
-    <span><span class="punto" style="display:inline-block;margin-right:7px"></span>Prioridad alta</span>
-  </div>
-
-  <footer>
-    Fuente: <code>datos/calendario_equipo.csv</code> en la bóveda. Las tareas recurrentes se expanden solas.<br>
-    El aviso diario por WhatsApp sale del mismo archivo: <code>python3 scripts/agenda_equipo.py</code>
-  </footer>
+    <section class="panel">
+      <h2>Filtros</h2>
+      <div class="cuerpo controles">
+        <div>
+          <label for="mes">Mes</label>
+          <select id="mes"></select>
+        </div>
+        <div>
+          <label for="marca">Marca</label>
+          <select id="marca">
+            <option value="">Todas</option>
+            <option>Luvania</option>
+            <option>CIFES</option>
+            <option>Escuela</option>
+          </select>
+        </div>
+        <button id="recargar">Actualizar</button>
+        <span class="cuenta" id="cuenta"></span>
+      </div>
+    </section>
+  </aside>
 </div>
 
-<dialog id="panel">
-  <div class="panel-cab">
-    <h4 id="panel-fecha">—</h4>
-    <button class="cerrar" id="panel-cerrar">Cerrar</button>
-  </div>
-  <div class="panel-cuerpo" id="panel-cuerpo"></div>
-</dialog>
+<footer>
+  Se lee directo de las hojas SMM en Drive: lo que se escribe allá aparece aquí al
+  actualizar. Sin copias intermedias.
+  <span id="sello"></span>
+</footer>
 
 <script>
-const TAREAS = [{"fecha": "2026-08-28","responsable": "Juan","tarea": "Cerrar los 4 masivos de botox contra el CRM","tipo": "revision","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Venecia, Colina, Chico y Modelia. Medir asistencias reales, no reservas Adelantado al viernes: la pieza publica el 30/8 (fin de semana) y se deja programada."},{"fecha": "2026-08-28","responsable": "Valerixa","tarea": "Adelantar carruseles 1 y 2 de Amor y Amistad","tipo": "diseno","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Antes de que arranque la moderacion del sorteo Adelantado al viernes: la pieza publica el 30/8 (fin de semana) y se deja programada."},{"fecha": "2026-09-01","responsable": "Valerixa","tarea": "Publicar arranque de Amor y Amistad","tipo": "publicacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Primer post del sorteo"},{"fecha": "2026-09-01","responsable": "Valeria","tarea": "Arrancar contenido de Escuela","tipo": "publicacion","unidad": "CIFES Escuela","prioridad": "alta","repite": "","detalle": "Primera semana como community de Escuela"},{"fecha": "2026-09-03","responsable": "Juan","tarea": "Cerrar Colina-Chico 1789 y CIFES Promo 21-22","tipo": "revision","unidad": "Ambas","prioridad": "alta","repite": "","detalle": "Vencen sus ultimas citas"},{"fecha": "2026-09-04","responsable": "Juan","tarea": "Cerrar Aniversario 2450","tipo": "revision","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Iba en 1.439 por mensaje y va a subir"},{"fecha": "2026-09-08","responsable": "Dyllan","tarea": "Corte de las landings de Google","tipo": "revision","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Botox A vs B y gluteos: leads, costo por lead, citas y ventas"},{"fecha": "2026-09-08","responsable": "Oscar","tarea": "Entregar videos 3 y 4 de la campana","tipo": "produccion","unidad": "Luvania","prioridad": "media","repite": "","detalle": "Segunda tanda de septiembre"},{"fecha": "2026-09-10","responsable": "Juan","tarea": "Cerrar Restrepo Botox","tipo": "revision","unidad": "Luvania","prioridad": "media","repite": "","detalle": "Tiene una cita el 9 de septiembre"},{"fecha": "2026-09-11","responsable": "Todos","tarea": "Comparar los 3 masivos nuevos contra el historico","tipo": "reporte","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Mensajes por cita, quien cerro, anticipacion y asistencias. Meta: bajar de 120 mensajes por cita Adelantado al viernes: la pieza publica el 12/9 (fin de semana) y se deja programada."},{"fecha": "2026-09-29","responsable": "Juan","tarea": "Ejecutar auditoria del sorteo","tipo": "auditoria","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Valerixa verifica"},{"fecha": "2026-08-28","responsable": "Dyllan","tarea": "Reporte semanal de pauta","tipo": "reporte","unidad": "Todas","prioridad": "alta","repite": "semanal","detalle": "Meta, Google y TikTok: inversion, resultados y costo por resultado por campana"},{"fecha": "2026-08-28","responsable": "Juan","tarea": "Cierre semanal del bot","tipo": "reporte","unidad": "Ambas","prioridad": "alta","repite": "semanal","detalle": "Citas creadas, cuantas cerro el bot y cuantas una persona, y a que anticipacion quedaron"},{"fecha": "2026-09-02","responsable": "Valerixa","tarea": "Armar el calendario de contenido de la semana siguiente","tipo": "planeacion","unidad": "Luvania","prioridad": "media","repite": "semanal","detalle": "Piezas por canal y por marca. No adaptar el mismo formato entre canales"},{"fecha": "2026-09-02","responsable": "Valeria","tarea": "Armar el calendario de contenido de Escuela","tipo": "planeacion","unidad": "CIFES Escuela","prioridad": "media","repite": "semanal","detalle": "Hablarle a quien busca oficio e ingresos. No usar el tono de las clinicas"},{"fecha": "2026-09-01","responsable": "Valerixa","tarea": "Retomar interesados sin cita de la semana anterior","tipo": "seguimiento","unidad": "Ambas","prioridad": "alta","repite": "semanal","detalle": "Los que conversaron y no agendaron. Hoy son 524 acumulados sin trabajar"},{"fecha": "2026-09-01","responsable": "Juan","tarea": "Reporte mensual del CRM por sede","tipo": "reporte","unidad": "Ambas","prioridad": "alta","repite": "mensual","detalle": "Leads, citas, asistencias, ventas y ticket por sede. Comparar contra el mes anterior"},{"fecha": "2026-09-04","responsable": "Todos","tarea": "Reunion mensual de resultados","tipo": "reunion","unidad": "Todas","prioridad": "alta","repite": "mensual","detalle": "Que funciono, que no y que se cambia el mes siguiente Adelantado al viernes: la pieza publica el 5/9 (fin de semana) y se deja programada."},{"fecha": "2026-08-28","responsable": "Valerixa","tarea": "Cerrar artes, T&C y premio del sorteo Mi Persona Favorita","tipo": "diseno","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "LUV-SEP-001. Fecha limite del propio SMM. Se lanza el 31 de agosto en vivo"},{"fecha": "2026-08-28","responsable": "Valeria","tarea": "Ordenar la pestana de Escuela del SMM de septiembre","tipo": "planeacion","unidad": "CIFES Escuela","prioridad": "alta","repite": "","detalle": "26 contenidos contra una regla de 10, 18 sin nombre y 9 sin fecha"},{"fecha": "2026-08-31","responsable": "Valerixa","tarea": "Publicar y lanzar en vivo el sorteo Mi Persona Favorita","tipo": "publicacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "LUV-SEP-001. Solo Instagram, no cruzar a Facebook. Meta: 1.000 seguidores nuevos"},{"fecha": "2026-09-07","responsable": "Oscar","tarea": "Entregar reel del Dia de la Belleza","tipo": "produccion","unidad": "Ambas","prioridad": "alta","repite": "","detalle": "LUV-SEP-005 y CCE-SEP-005. Fecha limite del SMM, publica el 9"},{"fecha": "2026-09-14","responsable": "Oscar","tarea": "Entregar reels de Botox Day y HarmonyCa Day","tipo": "produccion","unidad": "Ambas","prioridad": "media","repite": "","detalle": "LUV-SEP-008 y CCE-SEP-008. Eventos con estatus, sin porcentaje de descuento"},{"fecha": "2026-09-30","responsable": "Valerixa","tarea": "En vivo de cierre del sorteo","tipo": "auditoria","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "LUV-SEP-011. Se extraen 1 ganador y 3 suplentes, verificando requisitos antes de anunciar"},{"fecha": "2026-09-25","responsable": "Todos","tarea": "Armar el SMM de octubre","tipo": "planeacion","unidad": "Todas","prioridad": "alta","repite": "mensual","detalle": "10 contenidos por unidad, 4 de ventas, 2 masivos. Revisar el panel de control antes de cerrar"},{"fecha": "2026-08-28","responsable": "Valerixa","tarea": "LUV-SEP-002 · Mecanismo de accion: bioestimulacion","tipo": "contenido","unidad": "Luvania","prioridad": "media","repite": "","detalle": "Reel. Publica 1 sep. Video cientifico: dermis y estimulacion. Sin precios ni promesas"},{"fecha": "2026-09-02","responsable": "Valerixa","tarea": "LUV-SEP-003 · Duos Luvania: dos procedimientos juntos","tipo": "contenido","unidad": "Luvania","prioridad": "media","repite": "","detalle": "Carrusel. Publica 4 sep. Los 4 duos estandarizados. Hablar de bondades, no de precio"},{"fecha": "2026-09-04","responsable": "Valerixa","tarea": "LUV-SEP-004 · Expectativa Dia de la Belleza","tipo": "contenido","unidad": "Luvania","prioridad": "media","repite": "","detalle": "Historia. Publica 8 sep. Cuenta regresiva al 9 con pregunta interactiva"},{"fecha": "2026-09-07","responsable": "Valerixa","tarea": "LUV-SEP-005 · Dia de la Belleza: 30 minutos para ti","tipo": "contenido","unidad": "Luvania","prioridad": "media","repite": "","detalle": "Reel. Publica 9 sep. Amor propio. Hablar al sentir, no al precio. Va con masivo"},{"fecha": "2026-09-09","responsable": "Valerixa","tarea": "LUV-SEP-006 · 1 ml no es un resultado","tipo": "contenido","unidad": "Luvania","prioridad": "media","repite": "","detalle": "Reel. Publica 11 sep. Video ml por ml. La cantidad se define en valoracion"},{"fecha": "2026-09-11","responsable": "Valerixa","tarea": "LUV-SEP-007 · La tecnologia detras de tu tratamiento","tipo": "contenido","unidad": "Luvania","prioridad": "media","repite": "","detalle": "Carrusel. Publica 15 sep. Morpheus8, Ultherapy, radiofrecuencia y Bellanova"},{"fecha": "2026-09-14","responsable": "Valerixa","tarea": "LUV-SEP-008 · Botox Day Luvania","tipo": "contenido","unidad": "Luvania","prioridad": "media","repite": "","detalle": "Reel. Publica 17 sep. Estatus de marca y laboratorio. Sin porcentaje de descuento"},{"fecha": "2026-09-16","responsable": "Valerixa","tarea": "LUV-SEP-009 · Amor y Amistad: elegirse tambien es un plan","tipo": "contenido","unidad": "Luvania","prioridad": "media","repite": "","detalle": "Reel. Publica 18 sep. Viernes previo al sabado 19. Va con masivo, plantilla con antes y despues"},{"fecha": "2026-09-21","responsable": "Valerixa","tarea": "LUV-SEP-010 · Doctora reacciona: mitos de la toxina","tipo": "contenido","unidad": "Luvania","prioridad": "media","repite": "","detalle": "Reel. Publica 23 sep. Formato agil. Cierre: la indicacion depende de la valoracion"},{"fecha": "2026-09-28","responsable": "Valerixa","tarea": "LUV-SEP-011 · Cierra septiembre con tu valoracion facial","tipo": "contenido","unidad": "Luvania","prioridad": "media","repite": "","detalle": "Live. Publica 30 sep. Duos faciales. CTA de agendamiento inmediato. Va antes del live del sorteo"},{"fecha": "2026-08-31","responsable": "Valerixa","tarea": "CCE-SEP-002 · Que revisamos en tu valoracion sin costo","tipo": "contenido","unidad": "CIFES","prioridad": "media","repite": "","detalle": "Reel. Publica 2 sep. CIFES esta quedado en piezas y video: nivelar produccion"},{"fecha": "2026-09-02","responsable": "Valerixa","tarea": "CCE-SEP-003 · Acido hialuronico en labios: que define el resultado","tipo": "contenido","unidad": "CIFES","prioridad": "media","repite": "","detalle": "Carrusel. Publica 4 sep. Labios es la linea fuerte de CIFES"},{"fecha": "2026-09-04","responsable": "Valerixa","tarea": "CCE-SEP-004 · Expectativa Dia de la Belleza","tipo": "contenido","unidad": "CIFES","prioridad": "media","repite": "","detalle": "Historia. Publica 8 sep. Cuenta regresiva con pregunta interactiva"},{"fecha": "2026-09-07","responsable": "Valerixa","tarea": "CCE-SEP-005 · Dia de la Belleza: verte bien sin dejar de verte tu","tipo": "contenido","unidad": "CIFES","prioridad": "media","repite": "","detalle": "Reel. Publica 9 sep. Coordinar con el masivo de Luvania del mismo dia"},{"fecha": "2026-09-09","responsable": "Valerixa","tarea": "CCE-SEP-006 · Una sola ampolla no cambia tu rostro","tipo": "contenido","unidad": "CIFES","prioridad": "media","repite": "","detalle": "Reel. Publica 11 sep. Un mililitro por punto: pomulo, mandibula y menton"},{"fecha": "2026-09-11","responsable": "Valerixa","tarea": "CCE-SEP-007 · Labios que se ven tuyos","tipo": "contenido","unidad": "CIFES","prioridad": "media","repite": "","detalle": "Reel. Publica 15 sep. Pieza comercial con testimonio. CTA: valoracion sin costo"},{"fecha": "2026-09-14","responsable": "Valerixa","tarea": "CCE-SEP-008 · HarmonyCa Day CIFES","tipo": "contenido","unidad": "CIFES","prioridad": "media","repite": "","detalle": "Reel. Publica 17 sep. Estatus de marca, sin porcentaje de descuento"},{"fecha": "2026-09-16","responsable": "Valerixa","tarea": "CCE-SEP-009 · Amor y Amistad: un beso mejor cuidado","tipo": "contenido","unidad": "CIFES","prioridad": "media","repite": "","detalle": "Reel. Publica 18 sep. Adaptacion del dia del beso para impulsar labios"},{"fecha": "2026-09-22","responsable": "Valerixa","tarea": "CCE-SEP-010 · POV: pediste labios y la valoracion recomendo otra cosa","tipo": "contenido","unidad": "CIFES","prioridad": "media","repite": "","detalle": "Reel. Publica 24 sep. Contenido humano, sin oferta"},{"fecha": "2026-09-25","responsable": "Valerixa","tarea": "CCE-SEP-011 · Cierra septiembre con tu ruta facial","tipo": "contenido","unidad": "CIFES","prioridad": "media","repite": "","detalle": "Carrusel. Publica 29 sep. Carrusel por objetivos. CTA de agendamiento inmediato"},{"fecha": "2026-09-01","responsable": "Valeria","tarea": "ESC-SEP-001 · Recap SkinHair","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Reel. Publica 1 sep"},{"fecha": "2026-09-01","responsable": "Valeria","tarea": "ESC-SEP-002 · Live SkinHair","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Live. Publica 1 sep"},{"fecha": "2026-09-02","responsable": "Valeria","tarea": "ESC-SEP-003 · Plano detalle: la tecnica esta en cada movimiento","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Reel. Publica 2 sep"},{"fecha": "2026-09-03","responsable": "Valeria","tarea": "ESC-SEP-004 · Curso de Bioseguridad: lo que protege tu practica","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Reel. Publica 3 sep"},{"fecha": "2026-09-04","responsable": "Valeria","tarea": "ESC-SEP-005 · Vivi Tip 4: prepara tu camilla como una profesional","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Reel. Publica 4 sep"},{"fecha": "2026-09-08","responsable": "Valeria","tarea": "ESC-SEP-006 · Dia Mundial de la Fisioterapia: ruta de homologacion","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Reel. Publica 8 sep"},{"fecha": "2026-09-08","responsable": "Valeria","tarea": "ESC-SEP-007 · Dia Mundial de la Fisioterapia: promocion de homologacion","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Imagen. Publica 8 sep"},{"fecha": "2026-09-09","responsable": "Valeria","tarea": "ESC-SEP-008 · Asi se vive una clase de masajes","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Reel. Publica 9 sep"},{"fecha": "2026-09-16","responsable": "Valeria","tarea": "ESC-SEP-009 · Curso de Bioseguridad reel 1: contaminacion cruzada","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Reel. Publica 16 sep"},{"fecha": "2026-09-18","responsable": "Valeria","tarea": "ESC-SEP-010 · Amor y Amistad: aprender juntas tambien es un plan","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Reel. Publica 18 sep"},{"fecha": "2026-09-18","responsable": "Valeria","tarea": "ESC-SEP-011 · Brillar con tu persona favorita","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Reel. Publica 19 sep Adelantado al viernes: la pieza publica el 19/9 (fin de semana) y se deja programada."},{"fecha": "2026-09-18","responsable": "Valeria","tarea": "ESC-SEP-012 · Amor y Amistad: beneficio para estudiar","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Imagen. Publica 19 sep Adelantado al viernes: la pieza publica el 19/9 (fin de semana) y se deja programada."},{"fecha": "2026-09-21","responsable": "Valeria","tarea": "ESC-SEP-013 · Reel de reconocimiento: historias que inspiran","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Reel. Publica 21 sep"},{"fecha": "2026-09-21","responsable": "Valeria","tarea": "ESC-SEP-014 · Evento de reconocimiento","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Imagen. Publica 21 sep"},{"fecha": "2026-09-22","responsable": "Valeria","tarea": "ESC-SEP-015 · Tecnico en Cosmetologia: jornada de la tarde","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Carrusel. Publica 22 sep"},{"fecha": "2026-09-25","responsable": "Valeria","tarea": "ESC-SEP-016 · Contenido educativo por confirmar","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Reel. Publica 25 sep"},{"fecha": "2026-09-30","responsable": "Valeria","tarea": "ESC-SEP-017 · Cierre de inscripciones: proxima cohorte","tipo": "contenido","unidad": "CIFES Escuela","prioridad": "media","repite": "","detalle": "Reel. Publica 30 sep"},{"fecha": "2026-08-28","responsable": "Dyllan","tarea": "Armar las 3 bases de Duos Luvania desde el CRM","tipo": "planeacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Filtrar por interes en toxina o acido hialuronico. Maximo 1.300 por envio. Excluir los 153 sobrecontactados"},{"fecha": "2026-08-28","responsable": "Valerixa","tarea": "Tener listo el arte y la plantilla de Duos Luvania","tipo": "diseno","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "La plantilla sale el 31 pero el carrusel LUV-SEP-003 publica el 4: adelantar el arte"},{"fecha": "2026-08-31","responsable": "Dyllan","tarea": "Masivo Duos Luvania 1 de 3: Modelia y Restrepo","tipo": "envio","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Enviar 8:00 a.m. OJO: lunes no hay operacion, las citas se ofrecen para el martes 1. Estas dos sedes tienen asesora que cierra"},{"fecha": "2026-08-31","responsable": "Valerixa","tarea": "Avisar a Angelica Cruz y Maria Correa que entra el masivo","tipo": "coordinacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Las citas que cierra una persona se cumplen al doble. Ellas dos son las que mas cierran"},{"fecha": "2026-09-01","responsable": "Dyllan","tarea": "Masivo Duos Luvania 2 de 3: Venecia y Chico","tipo": "envio","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Martes: si hay agenda libre, ofrecer HOY primero. Es la franja del 47% de asistencia"},{"fecha": "2026-09-01","responsable": "Valerixa","tarea": "Avisar a las asesoras de Venecia y Chico","tipo": "coordinacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Chico es la sede de peor asistencia: sin asesora entrando, ese envio no rinde"},{"fecha": "2026-09-02","responsable": "Dyllan","tarea": "Masivo Duos Luvania 3 de 3: Colina y Cedritos","tipo": "envio","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Miercoles: ofrecer hoy y manana. Cedritos cierra al 72,9%, la mejor del grupo"},{"fecha": "2026-09-02","responsable": "Valerixa","tarea": "Avisar a las asesoras de Colina y Cedritos","tipo": "coordinacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Cedritos programa poco pero cierra mucho: vale empujar ahi"},{"fecha": "2026-09-04","responsable": "Juan","tarea": "Cerrar los 3 masivos de Duos contra el CRM","tipo": "revision","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Citas reales, quien las cerro, anticipacion y asistencias. Comparar contra los 120 mensajes por cita de agosto Adelantado al viernes: la pieza publica el 5/9 (fin de semana) y se deja programada."},{"fecha": "2026-09-04","responsable": "Dyllan","tarea": "Armar las 2 bases del Dia de la Belleza","tipo": "planeacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Plantilla A: Restrepo y Modelia. Plantilla B: Venecia, Chico y Colina. Excluir sobrecontactados y a quien recibio el masivo de Duos"},{"fecha": "2026-09-07","responsable": "Dyllan","tarea": "Masivo Dia de la Belleza · plantilla A: Restrepo y Modelia","tipo": "envio","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Agenda 8 y 9 de septiembre. Lunes no hay operacion: el 8 es +1 dia (30,8% de asistencia)"},{"fecha": "2026-09-07","responsable": "Dyllan","tarea": "Masivo Dia de la Belleza · plantilla B: Venecia, Chico y Colina","tipo": "envio","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Agenda 11 y 12. Al ser +4 y +5 dias: que la asesora de sede cierre la cita y confirme el dia anterior. Sin recordatorio, esa franja asiste al 17,7%"},{"fecha": "2026-09-07","responsable": "Valerixa","tarea": "Avisar a las asesoras de las 5 sedes que entran los dos masivos","tipo": "coordinacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Dos plantillas el mismo dia. Maximo 2 envios de plantilla al dia segun el SMM: queda en el limite"},{"fecha": "2026-09-14","responsable": "Juan","tarea": "Cerrar el masivo del Dia de la Belleza","tipo": "revision","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Comparar plantilla A (agenda a 1-2 dias) contra plantilla B (agenda a 4-5 dias). Es una prueba natural de anticipacion"},{"fecha": "2026-09-11","responsable": "Dyllan","tarea": "Armar la base del masivo de Amor y Amistad","tipo": "planeacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Las 6 sedes, faciales y corporales. Excluir sobrecontactados y a quien recibio Duos y Dia de la Belleza"},{"fecha": "2026-09-11","responsable": "Valerixa","tarea": "Tener lista la plantilla de Amor y Amistad","tipo": "diseno","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Va con imagen de antes y despues, segun el SMM. LUV-SEP-009 publica el 18"},{"fecha": "2026-09-14","responsable": "Dyllan","tarea": "Masivo Amor y Amistad · envio 1 de 2","tipo": "envio","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Todas las sedes, faciales y corporales. Agenda 18 y 19. Al ser +4 y +5 dias, la confirmacion previa es lo que sostiene la asistencia"},{"fecha": "2026-09-15","responsable": "Dyllan","tarea": "Masivo Amor y Amistad · envio 2 de 2","tipo": "envio","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Segundo impacto. Agenda 18 y 19. Verificar que no repita contactos del envio del 14"},{"fecha": "2026-09-14","responsable": "Valerixa","tarea": "Avisar a las 6 sedes que entra el masivo de Amor y Amistad","tipo": "coordinacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Es el masivo mas grande del mes. En Colina el cierre humano llevo la sede de 3 a 11 citas"},{"fecha": "2026-09-21","responsable": "Juan","tarea": "Cerrar el masivo de Amor y Amistad","tipo": "revision","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Citas del 18 y 19, quien las cerro y asistencias. Comparar los dos envios entre si"},{"fecha": "2026-09-10","responsable": "Valerixa","tarea": "Confirmar las citas del 11 y 12 con cada paciente","tipo": "seguimiento","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Citas del Dia de la Belleza plantilla B, agendadas a 4 y 5 dias. La confirmacion previa es la unica palanca que queda"},{"fecha": "2026-09-17","responsable": "Valerixa","tarea": "Confirmar las citas del 18 y 19 con cada paciente","tipo": "seguimiento","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Citas de Amor y Amistad. Es el fin de semana mas cargado del mes: sin confirmacion se cae la mitad"},{"fecha": "2026-09-18","responsable": "Dyllan","tarea": "Armar la base del Yellow Day","tipo": "planeacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Cinco sedes, faciales y corporales. Excluir sobrecontactados y a quien recibio Amor y Amistad la semana anterior"},{"fecha": "2026-09-18","responsable": "Valerixa","tarea": "Tener lista la plantilla del Yellow Day","tipo": "diseno","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Faciales y corporales. Sin porcentaje de descuento en la pieza, segun la regla del SMM"},{"fecha": "2026-09-21","responsable": "Dyllan","tarea": "Masivo Yellow Day · envio 1 de 2","tipo": "envio","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Cinco sedes. Agenda 25 y 26. Al ser +4 y +5 dias, la cita la cierra una persona y se confirma el dia anterior"},{"fecha": "2026-09-22","responsable": "Dyllan","tarea": "Masivo Yellow Day · envio 2 de 2","tipo": "envio","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Segundo impacto. Agenda 25 y 26. Verificar que no repita contactos del envio del 21"},{"fecha": "2026-09-21","responsable": "Valerixa","tarea": "Avisar a las cinco sedes que entra el Yellow Day","tipo": "coordinacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Cuarta campana del mes: la base ya viene golpeada. El cierre humano es lo que la sostiene"},{"fecha": "2026-09-24","responsable": "Valerixa","tarea": "Confirmar las citas del 25 y 26 con cada paciente","tipo": "seguimiento","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Citas del Yellow Day, agendadas a 3-5 dias. La confirmacion previa es lo que sostiene la asistencia"},{"fecha": "2026-09-28","responsable": "Juan","tarea": "Cerrar el masivo del Yellow Day","tipo": "revision","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Citas del 25 y 26, quien las cerro y asistencias. Cierra el ciclo de las 4 campanas de septiembre"},{"fecha": "2026-08-28","responsable": "Dyllan","tarea": "Armar la base de cumpleaneros de septiembre","tipo": "planeacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Contactos que cumplen anos en septiembre, sacados del CRM. Es base propia: no se cruza con la de Duos Adelantado al viernes: la pieza publica el 29/8 (fin de semana) y se deja programada."},{"fecha": "2026-08-28","responsable": "Valerixa","tarea": "Tener lista la plantilla de cumpleaneros","tipo": "diseno","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Agenda y reclama tu regalo de cumpleanos. Definir cual es el regalo antes de enviar Adelantado al viernes: la pieza publica el 29/8 (fin de semana) y se deja programada."},{"fecha": "2026-09-01","responsable": "Dyllan","tarea": "Masivo cumpleaneros de septiembre","tipo": "envio","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Base de cumpleaneros del mes. Empujar agenda para el 4 y 5, pero el beneficio vale todo septiembre. Segundo envio del dia: es el limite del SMM"},{"fecha": "2026-09-01","responsable": "Valerixa","tarea": "Avisar a las sedes que entra el masivo de cumpleaneros","tipo": "coordinacion","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Base caliente: es su cumpleanos. Que la cita la cierre una persona, no el bot"},{"fecha": "2026-09-03","responsable": "Valerixa","tarea": "Confirmar las citas del 4 y 5 de cumpleaneros","tipo": "seguimiento","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Agendadas a 3 y 4 dias del envio. Sin confirmacion previa, esa franja asiste al 17,7%"},{"fecha": "2026-09-08","responsable": "Juan","tarea": "Cerrar la primera ola de cumpleaneros","tipo": "revision","unidad": "Luvania","prioridad": "alta","repite": "","detalle": "Citas del 4 y 5. La campana sigue viva todo el mes: este es un corte parcial"},{"fecha": "2026-09-30","responsable": "Juan","tarea": "Cerrar la campana de cumpleaneros de septiembre","tipo": "revision","unidad": "Luvania","prioridad": "media","repite": "","detalle": "Cierre del mes completo. Comparar contra los cumpleaneros de agosto: es la unica campana que se repite mes a mes"},{"fecha": "2026-08-31","responsable": "Valerixa","tarea": "Mensaje a la comunidad de WhatsApp · lunes","tipo": "publicacion","unidad": "Luvania","prioridad": "media","repite": "semanal","detalle": "Dentro del grupo de la comunidad. Lunes no hay operacion: si el mensaje lleva CTA, ofrecer agenda desde el martes"},{"fecha": "2026-09-02","responsable": "Valerixa","tarea": "Mensaje a la comunidad de WhatsApp · miercoles","tipo": "publicacion","unidad": "Luvania","prioridad": "media","repite": "semanal","detalle": "Dentro del grupo de la comunidad. Mitad de semana: buen dia para contenido de valor, no de venta"},{"fecha": "2026-09-04","responsable": "Valerixa","tarea": "Mensaje a la comunidad de WhatsApp · viernes","tipo": "publicacion","unidad": "Luvania","prioridad": "media","repite": "semanal","detalle": "Dentro del grupo de la comunidad. Viernes gana alcance: sirve para empujar agenda del sabado"}];
-
-const DIAS = ["lunes","martes","miércoles","jueves","viernes","sábado","domingo"];
-const DOW  = ["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
-const MESES= ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
-const COLOR_UNIDAD = {
-  "Luvania":"var(--luvania)", "CIFES":"var(--cifes)", "CIFES Escuela":"var(--escuela)",
-  "Ambas":"var(--ambas)", "Todas":"var(--ambas)"
+// Cada mes es una hoja distinta en Drive. Se agregan nuevos meses aqui.
+const HOJAS = {
+  "2026-09": "1yiDQ0QRSdYWipYnBf5eJsJNsVSPq01AmLhtIde1e0uw",
+  "2026-10": "1K7HHBgnD1aQJ2neGa3xXJgTVAN4TEUO0BQ_eD56MP8I",
+  "2026-11": "1NlZOIWBErAb73h8eJ4YrTmMQHlfoSrzK4MtlbdpENu0",
+  "2026-12": "18tjIL4ohe8JjQKUG3pHXEILwTXIxob6dsCCZ782L3Tc"
 };
-const INICIO = new Date(2026,7,1), FIN = new Date(2026,9,31);
-const HOY = new Date(2026,7,27);
+const PESTANAS = [
+  ["Luvania", "Seguimiento Luvania"],
+  ["CIFES", "Seguimiento CIFES Centro estético"],
+  ["Escuela", "Seguimiento CIFES Escuela"]
+];
+const MES_NOMBRE = {
+  "01":"enero","02":"febrero","03":"marzo","04":"abril","05":"mayo","06":"junio",
+  "07":"julio","08":"agosto","09":"septiembre","10":"octubre","11":"noviembre","12":"diciembre"
+};
 
-const clave = d => d.toISOString().slice(0,10);
-const parse = s => { const [a,m,d]=s.split("-").map(Number); return new Date(a,m-1,d); };
-
-/* expande las tareas recurrentes igual que el script de Python */
-function expandir(t){
-  const ini = parse(t.fecha), fechas = [];
-  const r = (t.repite||"").toLowerCase();
-  if(!r){ return (ini>=INICIO && ini<=FIN) ? [ini] : []; }
-  let d = new Date(ini);
-  const paso = r==="semanal" ? 7 : r==="quincenal" ? 14 : null;
-  while(d <= FIN){
-    if(d >= INICIO) fechas.push(new Date(d));
-    if(paso) d.setDate(d.getDate()+paso);
-    else if(r==="mensual") d.setMonth(d.getMonth()+1);
-    else break;
+// El CSV de Google trae comillas y saltos de linea dentro de las celdas.
+function partirCSV(texto) {
+  const filas = []; let fila = [], celda = "", comillas = false;
+  for (let i = 0; i < texto.length; i++) {
+    const c = texto[i];
+    if (comillas) {
+      if (c === '"' && texto[i+1] === '"') { celda += '"'; i++; }
+      else if (c === '"') comillas = false;
+      else celda += c;
+    } else if (c === '"') comillas = true;
+    else if (c === ",") { fila.push(celda); celda = ""; }
+    else if (c === "\n") { fila.push(celda); filas.push(fila); fila = []; celda = ""; }
+    else if (c !== "\r") celda += c;
   }
-  return fechas;
+  if (celda || fila.length) { fila.push(celda); filas.push(fila); }
+  return filas;
 }
 
-const porDia = new Map();
-TAREAS.forEach(t => expandir(t).forEach(d => {
-  const k = clave(d);
-  if(!porDia.has(k)) porDia.set(k,[]);
-  porDia.get(k).push(t);
-}));
-porDia.forEach(v => v.sort((a,b) => (a.prioridad==="alta"?0:1)-(b.prioridad==="alta"?0:1) || a.responsable.localeCompare(b.responsable)));
-
-const PERSONAS = [...new Set(TAREAS.map(t=>t.responsable))].sort();
-let filtro = null;
-
-const visibles = k => (porDia.get(k)||[]).filter(t => !filtro || t.responsable===filtro);
-const color = t => COLOR_UNIDAD[t.unidad] || "var(--ambas)";
-
-function nodoTarea(t){
-  const el = document.createElement("div");
-  el.className = "tarea" + (t.prioridad==="alta" ? " alta" : "");
-  el.style.setProperty("--u", color(t));
-  const meta = [t.unidad, t.tipo.replace("-"," ")];
-  if(t.repite) meta.push(t.repite);
-  el.innerHTML = `<span class="quien">${t.responsable}</span>
-    <div><span class="qq">${t.tarea}</span>
-      ${t.detalle ? `<span class="dd">${t.detalle}</span>` : ""}
-      <div class="meta">${t.prioridad==="alta" ? `<span class="pri">Alta</span>` : ""}${meta.map(m=>`<span>${m}</span>`).join("")}</div>
-    </div>`;
-  return el;
+// Las fechas vienen como 4/9/2026, a veces con hora
+function aISO(s) {
+  if (!s) return "";
+  const m = String(s).trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if (!m) return "";
+  return `${m[3]}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}`;
 }
 
-/* ---- hoy ---- */
-function pintarHoy(){
-  const cont = document.getElementById("hoy-lista");
-  cont.textContent = "";
-  const lista = visibles(clave(HOY));
-  if(!lista.length){
-    const p = document.createElement("p");
-    p.className = "vacio";
-    p.textContent = filtro ? `Sin tareas de ${filtro} para hoy.` : "Sin tareas para hoy.";
-    cont.appendChild(p);
+async function traerPestana(id, pestana, marca) {
+  const url = `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(pestana)}&_=${Date.now()}`;
+  const r = await fetch(url);
+  if (!r.ok) return [];
+  const filas = partirCSV(await r.text());
+  if (!filas.length) return [];
+  const cab = filas[0].map(c => c.trim());
+  const col = n => cab.findIndex(c => c.toLowerCase() === n.toLowerCase());
+  const iCod = col("ID contenido"), iNom = col("Nombre contenido");
+  const iRed = col("RRSS"), iFor = col("Formato"), iDet = col("Detalles");
+  const iPub = col("Fecha de publicación"), iLim = col("Fecha límite");
+  const iEst = col("Estado producción"), iTipo = col("Tipo contenido");
+  return filas.slice(1).map(f => ({
+    marca,
+    codigo: (f[iCod] || "").trim(),
+    nombre: (f[iNom] || "").trim(),
+    red: (f[iRed] || "").trim(),
+    formato: (f[iFor] || "").trim(),
+    detalle: (f[iDet] || "").trim(),
+    tipo: (f[iTipo] || "").trim(),
+    estado: (f[iEst] || "").trim(),
+    publica: aISO(f[iPub]),
+    limite: aISO(f[iLim])
+  })).filter(x => x.nombre);
+}
+
+async function cargar() {
+  const mes = document.getElementById("mes").value;
+  const filtro = document.getElementById("marca").value;
+  const caja = document.getElementById("tabla");
+  caja.innerHTML = '<p class="cargando">Leyendo el SMM…</p>';
+  const id = HOJAS[mes];
+  let todo = [];
+  try {
+    const partes = await Promise.all(
+      PESTANAS.map(([m, p]) => traerPestana(id, p, m).catch(() => []))
+    );
+    todo = partes.flat();
+  } catch (e) {
+    caja.innerHTML = '<p class="vacio">No se pudo leer la hoja. Revisa que siga compartida.</p>';
     return;
   }
-  lista.forEach(t => cont.appendChild(nodoTarea(t)));
+  if (filtro) todo = todo.filter(x => x.marca === filtro);
+  todo.sort((a, b) => (a.publica || "9999").localeCompare(b.publica || "9999"));
+  pintar(todo, mes);
+  pintarHoy(todo);
+  document.getElementById("cuenta").textContent = `${todo.length} piezas`;
+  document.getElementById("sello").textContent =
+    " · Última lectura: " + new Date().toLocaleString("es-CO");
 }
 
-/* ---- filtros ---- */
-function pintarFiltros(){
-  const cont = document.getElementById("filtros");
-  PERSONAS.forEach(p => {
-    const n = [...porDia.values()].flat().filter(t=>t.responsable===p).length;
-    const b = document.createElement("button");
-    b.className = "chip"; b.type = "button";
-    b.setAttribute("aria-pressed","false");
-    b.innerHTML = `${p} <span class="n">${n}</span>`;
-    b.onclick = () => {
-      filtro = filtro===p ? null : p;
-      document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed","false"));
-      if(filtro) b.setAttribute("aria-pressed","true");
-      pintarHoy(); pintarMeses();
-    };
-    cont.appendChild(b);
-  });
-}
+const DIAS = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
 
-/* ---- meses ---- */
-function pintarMeses(){
-  const cont = document.getElementById("meses");
-  cont.textContent = "";
-  for(let m=7; m<=9; m++){
-    const sec = document.createElement("section");
-    sec.className = "mes";
-    const primero = new Date(2026,m,1), ultimo = new Date(2026,m+1,0);
-    let total = 0;
-    for(let d=1; d<=ultimo.getDate(); d++) total += visibles(clave(new Date(2026,m,d))).length;
-
-    const cab = document.createElement("div");
-    cab.className = "mes-cab";
-    cab.innerHTML = `<h3>${MESES[m].charAt(0).toUpperCase()+MESES[m].slice(1)}</h3><span>${total} ${total===1?"tarea":"tareas"}</span>`;
-    sec.appendChild(cab);
-
-    const g = document.createElement("div");
-    g.className = "rejilla";
-    DOW.forEach(d => { const e=document.createElement("div"); e.className="dow"; e.textContent=d; g.appendChild(e); });
-
-    const offset = (primero.getDay()+6)%7;
-    for(let i=0;i<offset;i++){ const e=document.createElement("div"); e.className="dia fuera"; g.appendChild(e); }
-
-    for(let d=1; d<=ultimo.getDate(); d++){
-      const fecha = new Date(2026,m,d), k = clave(fecha), lista = visibles(k);
-      const cel = document.createElement("button");
-      cel.type = "button";
-      cel.className = "dia" + ([5,6].includes((fecha.getDay()+6)%7) ? " finde":"") + (k===clave(HOY)?" hoy":"");
-      cel.setAttribute("aria-label", `${d} de ${MESES[m]}, ${lista.length} tareas`);
-      const alta = lista.some(t=>t.prioridad==="alta");
-      cel.innerHTML = `<div class="num"><span>${d}</span>${alta?'<span class="punto"></span>':""}</div>`;
-      lista.slice(0,2).forEach(t => {
-        const mi = document.createElement("div");
-        mi.className = "mini";
-        mi.style.setProperty("--u", color(t));
-        mi.innerHTML = `<b>${t.responsable.slice(0,3).toUpperCase()}</b><span>${t.tarea}</span>`;
-        cel.appendChild(mi);
-      });
-      if(lista.length>2){
-        const mas = document.createElement("div");
-        mas.className="mas"; mas.textContent = `+${lista.length-2}`;
-        cel.appendChild(mas);
-      }
-      if(lista.length) cel.onclick = () => abrirDia(fecha, lista);
-      else cel.style.cursor = "default";
-      g.appendChild(cel);
-    }
-    sec.appendChild(g);
-    cont.appendChild(sec);
+function pintarHoy(datos) {
+  const d = new Date();
+  const hoy = d.toISOString().slice(0, 10);
+  document.getElementById("hoy-fecha").textContent =
+    `${DIAS[d.getDay()]} ${d.getDate()} de ${MES_NOMBRE[hoy.slice(5,7)]}`;
+  const suyas = datos.filter(x => x.publica === hoy);
+  const caja = document.getElementById("hoy-lista");
+  if (!suyas.length) {
+    caja.innerHTML = '<span class="nada-hoy">Nada publica hoy.</span>';
+    return;
   }
+  caja.innerHTML = suyas.map(x => `
+    <div class="tarea-hoy">
+      <span class="marca m-${x.marca}">${x.marca}</span>
+      <span class="t-nom">${x.nombre}</span>
+      <span class="t-meta">${x.codigo}${x.formato ? " · " + x.formato : ""}
+        ${x.estado ? " · " + x.estado : ""}</span>
+    </div>`).join("");
 }
 
-/* ---- panel ---- */
-const panel = document.getElementById("panel");
-function abrirDia(fecha, lista){
-  document.getElementById("panel-fecha").textContent =
-    `${DIAS[(fecha.getDay()+6)%7]} ${fecha.getDate()} de ${MESES[fecha.getMonth()]}`;
-  const cuerpo = document.getElementById("panel-cuerpo");
-  cuerpo.textContent = "";
-  lista.forEach(t => cuerpo.appendChild(nodoTarea(t)));
-  panel.showModal();
+function pintar(datos, mes) {
+  const caja = document.getElementById("tabla");
+  if (!datos.length) { caja.innerHTML = '<p class="vacio">Sin piezas en este mes.</p>'; return; }
+  const hoy = new Date().toISOString().slice(0, 10);
+  const [a, m] = mes.split("-");
+  let h = `<table><caption>${MES_NOMBRE[m]} de ${a}</caption><thead><tr>
+    <th>Marca</th><th>Código</th><th>Contenido</th>
+    <th class="col-det">Formato</th><th>Publica</th><th>Límite</th>
+    <th class="col-est">Estado</th></tr></thead><tbody>`;
+  for (const x of datos) {
+    const esHoy = x.publica === hoy ? " hoy" : "";
+    h += `<tr class="${x.publica === hoy ? 'fila-hoy' : ''}">
+      <td><span class="marca m-${x.marca}">${x.marca}</span></td>
+      <td class="cod">${x.codigo}</td>
+      <td><span class="nom">${x.nombre}</span>
+          ${x.detalle ? `<span class="det">${x.detalle.slice(0,120)}</span>` : ""}</td>
+      <td class="col-det">${x.red}${x.formato ? " · " + x.formato : ""}</td>
+      <td class="fecha${esHoy}">${x.publica || "—"}</td>
+      <td class="fecha">${x.limite || "—"}</td>
+      <td class="col-est estado">${x.estado || "—"}</td>
+    </tr>`;
+  }
+  caja.innerHTML = h + "</tbody></table>";
 }
-document.getElementById("panel-cerrar").onclick = () => panel.close();
-panel.addEventListener("click", e => { if(e.target===panel) panel.close(); });
 
-/* ---- arranque ---- */
-document.getElementById("n-tareas").textContent = [...porDia.values()].flat().length;
-document.getElementById("hoy-fecha").textContent = `${DIAS[(HOY.getDay()+6)%7]} ${HOY.getDate()} de ${MESES[HOY.getMonth()]}`;
-document.getElementById("hoy-stamp").textContent = `hoy: ${HOY.getDate()}/${HOY.getMonth()+1}/${HOY.getFullYear()}`;
-pintarFiltros();
-pintarHoy();
-pintarMeses();
+const sel = document.getElementById("mes");
+for (const k of Object.keys(HOJAS)) {
+  const [a, m] = k.split("-");
+  sel.insertAdjacentHTML("beforeend",
+    `<option value="${k}">${MES_NOMBRE[m]} ${a}</option>`);
+}
+const actual = new Date().toISOString().slice(0, 7);
+sel.value = HOJAS[actual] ? actual : Object.keys(HOJAS)[0];
+sel.onchange = cargar;
+document.getElementById("marca").onchange = cargar;
+document.getElementById("recargar").onclick = cargar;
+cargar();
 </script>
 </body>
 </html>
