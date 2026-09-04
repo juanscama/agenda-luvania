@@ -17,6 +17,8 @@
     --tenue: #c4b5a8;
     --linea: #e6dbd0;
     --coral: #c96f4a;
+    --amarillo: #e8b53d;
+    --amarillo-suave: #fdf6dd;
     --crema: #faf5ef;
     --fondo: #efe8df;
     --papel: #ffffff;
@@ -62,9 +64,9 @@
   .controles { display: flex; gap: 8px; align-items: center; }
 
   /* lo de hoy: es lo primero que se mira */
-  .hoy-panel { box-shadow: 0 0 0 2px var(--coral), 0 6px 20px rgba(201,111,74,.16); }
-  .hoy-panel h2 { background: var(--coral); color: #fff; border-bottom-color: var(--coral);
-                  letter-spacing: 3px; }
+  .hoy-panel { box-shadow: 0 0 0 3px var(--amarillo), 0 6px 22px rgba(232,181,61,.26); }
+  .hoy-panel h2 { background: var(--amarillo); color: var(--tinta);
+                  border-bottom-color: var(--amarillo); letter-spacing: 3px; }
   .hoy-fecha {
     font-size: 10px; color: var(--suave); margin-bottom: 14px;
     text-transform: uppercase; letter-spacing: 1.6px; font-weight: 600;
@@ -146,8 +148,8 @@
   .celda.fuera:hover { transform: none; box-shadow: none; }
   .celda.finde { background: #f8f3ed; box-shadow: 0 0 0 1px rgba(42,35,32,.04); }
   .celda.hoy {
-    background: #fffdfb;
-    box-shadow: 0 0 0 2px var(--coral), 0 8px 22px rgba(201,111,74,.2);
+    background: var(--amarillo-suave);
+    box-shadow: 0 0 0 3px var(--amarillo), 0 8px 24px rgba(232,181,61,.32);
   }
   .num {
     font-family: var(--titulo); font-size: 17px; color: var(--suave);
@@ -155,7 +157,7 @@
   }
   .celda.fuera .num { color: var(--tenue); }
   .celda.hoy .num {
-    color: #fff; background: var(--coral); font-weight: 500;
+    color: var(--tinta); background: var(--amarillo); font-weight: 600;
     width: 28px; height: 28px; line-height: 28px; text-align: center;
     border-radius: 50%; margin: -4px 0 10px;
   }
