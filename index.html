@@ -13,7 +13,8 @@
     --titulo: "Bodoni Moda", "Bodoni 72", Didot, "Times New Roman", serif;
     --texto: "Mulish", Avenir, "Avenir Next", -apple-system, sans-serif;
     --tinta: #2a2320;
-    --suave: #9a8b80;
+    --suave: #8a7a6e;
+    --dato: #6d5f54;
     --tenue: #c4b5a8;
     --linea: #e6dbd0;
     --coral: #c96f4a;
@@ -68,7 +69,7 @@
   .hoy-panel h2 { background: var(--amarillo); color: var(--tinta);
                   border-bottom-color: var(--amarillo); letter-spacing: 3px; }
   .hoy-fecha {
-    font-size: 10px; color: var(--suave); margin-bottom: 14px;
+    font-size: 10px; color: var(--dato); margin-bottom: 14px;
     text-transform: uppercase; letter-spacing: 1.6px; font-weight: 600;
   }
   .tarea-hoy {
@@ -76,10 +77,14 @@
   }
   .tarea-hoy:last-child { border-bottom: none; padding-bottom: 0; }
   .tarea-hoy .t-nom {
-    font-family: var(--titulo); font-weight: 500; display: block;
-    font-size: 16px; line-height: 1.3; margin: 3px 0 4px;
+    font-family: var(--titulo); font-weight: 600; display: block;
+    font-size: 16.5px; line-height: 1.32; margin: 6px 0 6px;
+    color: var(--tinta);
   }
-  .tarea-hoy .t-meta { font-size: 11px; color: var(--suave); letter-spacing: .2px; }
+  .tarea-hoy .t-meta {
+    font-size: 11.5px; color: var(--dato); letter-spacing: .1px;
+    font-weight: 500;
+  }
   .nada-hoy { color: var(--suave); font-style: italic; font-size: 14px; }
 
   /* el detalle del dia que se abre al hacer clic en el calendario */
@@ -97,11 +102,11 @@
     font-family: var(--titulo); font-weight: 500; font-size: 17px;
     display: block; margin: 6px 0 5px; line-height: 1.28;
   }
-  .det-pieza .d-desc { font-size: 12.5px; color: #6b5d54; margin: 8px 0; line-height: 1.6; }
-  .det-fila { font-size: 11px; color: var(--suave); margin-top: 5px; }
+  .det-pieza .d-desc { font-size: 13px; color: var(--dato); margin: 9px 0; line-height: 1.62; }
+  .det-fila { font-size: 11.5px; color: var(--dato); margin-top: 6px; }
   .det-fila b {
-    color: var(--tinta); font-weight: 700; font-size: 9.5px;
-    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--suave); font-weight: 700; font-size: 9px;
+    text-transform: uppercase; letter-spacing: 1.2px;
   }
   .cuenta { font-size: 12px; color: var(--suave); }
 
@@ -174,12 +179,22 @@
     font-size: 11px; letter-spacing: -.05px; line-height: 1.35;
   }
   .pieza i {
-    font-style: normal; color: var(--suave); font-size: 8.5px;
-    font-weight: 700; letter-spacing: .8px;
+    font-style: normal; color: var(--dato); font-size: 9px;
+    font-weight: 700; letter-spacing: .7px; opacity: .85;
   }
   .p-Luvania { border-color: var(--luvania); background: #fbf0ea; }
   .p-CIFES   { border-color: var(--cifes);   background: #edf1f9; }
   .p-Escuela { border-color: var(--escuela); background: #f0f5eb; }
+
+  /* el chip de marca: fondo solido y texto blanco, para que se lea */
+  .marca {
+    display: inline-block; padding: 3px 9px; font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px; border-radius: 3px;
+    color: #fff; line-height: 1.5;
+  }
+  .m-Luvania { background: #b85c37; }
+  .m-CIFES   { background: #41609f; }
+  .m-Escuela { background: #5d7f42; }
 
   .leyenda {
     margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--tenue);
