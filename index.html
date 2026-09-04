@@ -5,8 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Calendario SMM · Luvania y CIFES</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
+    --titulo: "Bodoni Moda", "Bodoni 72", Didot, "Times New Roman", serif;
+    --texto: "Mulish", Avenir, "Avenir Next", -apple-system, sans-serif;
     --tinta: #2a2320;
     --suave: #9a8b80;
     --tenue: #c4b5a8;
@@ -21,19 +26,23 @@
   }
   * { box-sizing: border-box; }
   body {
-    font-family: "Times New Roman", Times, serif;
+    font-family: var(--texto);
     background: var(--fondo); color: var(--tinta);
     margin: 0; padding: 34px 30px 70px;
-    font-size: 15px; line-height: 1.5;
+    font-size: 14px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
   }
   header {
     margin-bottom: 26px; padding-bottom: 18px;
     border-bottom: 1px solid var(--tenue);
   }
-  h1 { font-size: 34px; font-weight: normal; margin: 0 0 5px; letter-spacing: -.6px; }
+  h1 {
+    font-family: var(--titulo); font-size: 36px; font-weight: 500;
+    margin: 0 0 6px; letter-spacing: -.4px; line-height: 1;
+  }
   .sub {
-    color: var(--suave); font-size: 11px;
-    text-transform: uppercase; letter-spacing: 2px;
+    color: var(--suave); font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 2.2px;
   }
   .columnas { display: grid; grid-template-columns: 1fr 340px; gap: 22px; align-items: start; }
 
@@ -43,8 +52,8 @@
     box-shadow: 0 1px 3px rgba(42,35,32,.07), 0 0 0 1px rgba(42,35,32,.04);
   }
   .panel h2 {
-    margin: 0; padding: 12px 16px; font-size: 10.5px; font-weight: normal;
-    text-transform: uppercase; letter-spacing: 2px;
+    margin: 0; padding: 13px 16px; font-size: 9.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2.4px;
     border-bottom: 1px solid var(--linea); background: var(--crema);
     color: var(--suave);
   }
@@ -56,13 +65,19 @@
   .hoy-panel { box-shadow: 0 0 0 2px var(--coral), 0 6px 20px rgba(201,111,74,.16); }
   .hoy-panel h2 { background: var(--coral); color: #fff; border-bottom-color: var(--coral);
                   letter-spacing: 3px; }
-  .hoy-fecha { font-size: 13px; color: var(--suave); margin-bottom: 10px; font-style: italic; }
+  .hoy-fecha {
+    font-size: 10px; color: var(--suave); margin-bottom: 14px;
+    text-transform: uppercase; letter-spacing: 1.6px; font-weight: 600;
+  }
   .tarea-hoy {
     padding: 9px 0; border-bottom: 1.5px solid var(--linea);
   }
   .tarea-hoy:last-child { border-bottom: none; padding-bottom: 0; }
-  .tarea-hoy .t-nom { font-weight: bold; display: block; font-size: 14px; }
-  .tarea-hoy .t-meta { font-size: 12px; color: var(--suave); }
+  .tarea-hoy .t-nom {
+    font-family: var(--titulo); font-weight: 500; display: block;
+    font-size: 16px; line-height: 1.3; margin: 3px 0 4px;
+  }
+  .tarea-hoy .t-meta { font-size: 11px; color: var(--suave); letter-spacing: .2px; }
   .nada-hoy { color: var(--suave); font-style: italic; font-size: 14px; }
 
   /* el detalle del dia que se abre al hacer clic en el calendario */
@@ -76,10 +91,16 @@
   .cerrar:hover { color: var(--tinta); background: none; }
   .det-pieza { padding: 13px 0; border-bottom: 1px solid var(--linea); }
   .det-pieza:last-child { border-bottom: none; padding-bottom: 2px; }
-  .det-pieza .d-nom { font-weight: bold; font-size: 14px; display: block; margin: 5px 0 3px; }
-  .det-pieza .d-desc { font-size: 12.5px; color: #6b5d54; margin: 6px 0; line-height: 1.5; }
-  .det-fila { font-size: 11.5px; color: var(--suave); margin-top: 5px; }
-  .det-fila b { color: var(--tinta); font-weight: normal; }
+  .det-pieza .d-nom {
+    font-family: var(--titulo); font-weight: 500; font-size: 17px;
+    display: block; margin: 6px 0 5px; line-height: 1.28;
+  }
+  .det-pieza .d-desc { font-size: 12.5px; color: #6b5d54; margin: 8px 0; line-height: 1.6; }
+  .det-fila { font-size: 11px; color: var(--suave); margin-top: 5px; }
+  .det-fila b {
+    color: var(--tinta); font-weight: 700; font-size: 9.5px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
   .cuenta { font-size: 12px; color: var(--suave); }
 
   @media (max-width: 900px) {
@@ -87,7 +108,7 @@
     aside { position: static; }
   }
   select, button {
-    font-family: inherit; font-size: 14px; padding: 5px 10px;
+    font-family: var(--texto); font-size: 12.5px; padding: 6px 11px;
     border: 1px solid var(--linea); background: #fff; color: var(--tinta);
     cursor: pointer; border-radius: 4px;
   }
@@ -95,20 +116,21 @@
   .cuenta { margin-left: auto; font-size: 13px; color: var(--suave); }
 
   .mes-titulo {
-    font-size: 25px; margin: 0; font-weight: normal; letter-spacing: -.3px;
-    display: flex; align-items: baseline; gap: 10px;
+    font-family: var(--titulo); font-size: 30px; margin: 0; font-weight: 400;
+    letter-spacing: -.2px; display: flex; align-items: baseline; gap: 11px;
+    text-transform: lowercase;
   }
-  .mes-titulo span { color: var(--tenue); font-size: 20px; }
+  .mes-titulo span { color: var(--tenue); font-size: 22px; font-weight: 400; }
   .mes-sub {
-    font-size: 10.5px; color: var(--suave); margin: 2px 0 20px;
-    text-transform: uppercase; letter-spacing: 1.6px;
+    font-size: 9.5px; color: var(--suave); margin: 4px 0 22px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.8px;
   }
 
   .grilla { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
   .dia-nom {
-    padding: 0 0 10px; text-align: center;
-    font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
-    color: var(--tenue);
+    padding: 0 0 11px; text-align: center;
+    font-size: 9.5px; text-transform: uppercase; letter-spacing: 2.4px;
+    color: var(--tenue); font-weight: 700;
   }
   .celda {
     background: var(--papel); min-height: 128px; padding: 10px 9px 12px;
@@ -128,14 +150,14 @@
     box-shadow: 0 0 0 2px var(--coral), 0 8px 22px rgba(201,111,74,.2);
   }
   .num {
-    font-size: 14px; color: var(--suave); margin-bottom: 9px;
-    font-variant-numeric: tabular-nums; line-height: 1;
+    font-family: var(--titulo); font-size: 17px; color: var(--suave);
+    margin-bottom: 10px; font-variant-numeric: tabular-nums; line-height: 1;
   }
   .celda.fuera .num { color: var(--tenue); }
   .celda.hoy .num {
-    color: #fff; background: var(--coral); font-weight: bold;
-    width: 26px; height: 26px; line-height: 26px; text-align: center;
-    border-radius: 50%; margin: -3px 0 9px;
+    color: #fff; background: var(--coral); font-weight: 500;
+    width: 28px; height: 28px; line-height: 28px; text-align: center;
+    border-radius: 50%; margin: -4px 0 10px;
   }
 
   .pieza {
@@ -145,15 +167,21 @@
     transition: transform .12s ease;
   }
   .pieza:hover { transform: translateX(2px); }
-  .pieza b { display: block; font-weight: bold; margin-bottom: 2px; letter-spacing: -.1px; }
-  .pieza i { font-style: normal; color: var(--suave); font-size: 9px; letter-spacing: .3px; }
+  .pieza b {
+    display: block; font-weight: 600; margin-bottom: 3px;
+    font-size: 11px; letter-spacing: -.05px; line-height: 1.35;
+  }
+  .pieza i {
+    font-style: normal; color: var(--suave); font-size: 8.5px;
+    font-weight: 700; letter-spacing: .8px;
+  }
   .p-Luvania { border-color: var(--luvania); background: #fbf0ea; }
   .p-CIFES   { border-color: var(--cifes);   background: #edf1f9; }
   .p-Escuela { border-color: var(--escuela); background: #f0f5eb; }
 
   .leyenda {
     margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--tenue);
-    font-size: 11px; color: var(--suave);
+    font-size: 9.5px; font-weight: 600; color: var(--suave);
     display: flex; gap: 20px; align-items: center; flex-wrap: wrap;
     text-transform: uppercase; letter-spacing: 1px;
   }
